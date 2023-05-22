@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "documenti_emessi")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class DocumentoEmesso {
+public class DocumentoEmesso {
     @Id
     @SequenceGenerator(name = "seq_documenti_emessi", sequenceName = "seq_documenti_emessi", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_documenti_emessi")

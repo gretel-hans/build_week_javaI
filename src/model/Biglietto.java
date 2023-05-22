@@ -10,8 +10,10 @@ import javax.persistence.Table;
 @Table(name = "biglietti")
 public class Biglietto extends DocumentoEmesso {
 
-    public Biglietto(PuntoEmissione puntoEmissione, LocalDate dataEmissione) {
-        super(puntoEmissione, dataEmissione);
-    }
-    
+	public Biglietto(PuntoEmissione puntoEmissione, LocalDate dataEmissione) {
+		super(puntoEmissione, dataEmissione);
+	}
+
+	public Biglietto() {
+	}
 }

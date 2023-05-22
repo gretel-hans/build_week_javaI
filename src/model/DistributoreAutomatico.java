@@ -2,10 +2,11 @@ package model;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorColumn(name = "distributore_automatico")
+@DiscriminatorValue(value = "distributore_automatico")
 public class DistributoreAutomatico extends PuntoEmissione{
     @Column(name = "in_servizio")
     Boolean inServizio = true;

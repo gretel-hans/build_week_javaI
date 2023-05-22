@@ -1,13 +1,17 @@
 package model;
 
-import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorColumn(name = "rivenditore_autorizzato")
+@DiscriminatorValue(value = "rivenditore_autorizzato")
 public class RivenditoreAutorizzato extends PuntoEmissione {
-    public RivenditoreAutorizzato() {};
-    public RivenditoreAutorizzato(String indirizzo) {
-        super(indirizzo);
-    }
+	public RivenditoreAutorizzato() {
+		super();
+	};
+
+	public RivenditoreAutorizzato(String indirizzo) {
+		super(indirizzo);
+	}
+
 }
