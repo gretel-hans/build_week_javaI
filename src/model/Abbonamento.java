@@ -20,7 +20,9 @@ public class Abbonamento extends DocumentoEmesso {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private durata durata; 
-
+    @Column(nullable = false)
+    private LocalDate scadenza;
+    
     public enum durata {SETTIMANALE,MENSILE}
 
     public Abbonamento() {}
@@ -29,6 +31,11 @@ public class Abbonamento extends DocumentoEmesso {
         super(puntoEmissione, dataEmissione);
         this.utente = utente;
         this.durata = durata;
+        if (this.durata == durata.SETTIMANALE) {
+        	this.scadenza = super.getDataEmissione().plusDays(7); 
+        } else {
+        	this.scadenza = super.getDataEmissione().plusDays(31);
+        }
     }
    
     public Abbonamento(PuntoEmissione puntoEmissione, LocalDate dataEmissione) {

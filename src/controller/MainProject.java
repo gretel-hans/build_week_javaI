@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import ch.qos.logback.core.status.Status;
 import dao.BigliettoDAO;
 import dao.MezzoDAO;
+import dao.UtenteDAO;
 import enums.StatoMezzo;
 import model.Abbonamento;
 import model.DistributoreAutomatico;
@@ -22,35 +23,33 @@ import model.Abbonamento.durata;
 import model.Biglietto;
 import utils.JpaUtil;
 
-
 public class MainProject {
-	
+
 	static EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+
 	public static void main(String[] args) {
-		
+
 		PuntoEmissione disAut = new DistributoreAutomatico("Via Verdi 51");
 		Biglietto b1 = new Biglietto(disAut, LocalDate.of(2023, 5, 23));
 		BigliettoDAO bd = new BigliettoDAO();
 		bd.salvaBiglietto(b1);
 		List<Biglietto> bv = new ArrayList<Biglietto>();
-		 bv.add(b1);
-		 
-		 
-		 //cercaPEperId(1);
-		 
-		 Biglietto b2 = new Biglietto(disAut, LocalDate.of(2023, 5, 23));
-		 bd.salvaBiglietto(b2);
-		
+		bv.add(b1);
+
+		// cercaPEperId(1);
+
+		Biglietto b2 = new Biglietto(disAut, LocalDate.of(2023, 5, 23));
+		bd.salvaBiglietto(b2);
+
 		Mezzo m1 = new Mezzo(30, StatoMezzo.SERVIZIO, bv);
 		MezzoDAO md = new MezzoDAO();
-		//md.salvaMezzo(m1);
-		//timbraBiglieto(b1);
-	
-		
-	PuntoEmissione rivAut = new RivenditoreAutorizzato("Via Rossi 15");
-	Tessera tessera = new Tessera(LocalDate.of(2020, 1, 1));
+		// md.salvaMezzo(m1);
+		// timbraBiglieto(b1);
+		Tessera tessera = new Tessera(LocalDate.of(2020, 1, 1));
 		Utente mario = new Utente(tessera, "Mario", "Rossi");
-		Abbonamento abbonamento = new Abbonamento(rivAut, LocalDate.of(2021, 4,6), mario, durata.MENSILE);
+
+		PuntoEmissione rivAut = new RivenditoreAutorizzato("Via Rossi 15");
+		Abbonamento abbonamento = new Abbonamento(rivAut, LocalDate.of(2021, 4, 6), mario, durata.MENSILE);
 		em.getTransaction().begin();
 		em.persist(disAut);
 		em.persist(rivAut);
@@ -59,10 +58,13 @@ public class MainProject {
 		em.persist(abbonamento);
 		em.getTransaction().commit();
 		em.close();
+		
+		UtenteDAO ud = new UtenteDAO();
+		ud.checkPerId(2, LocalDate.now());
 	}
-	
+
 	static public void timbraBiglieto(Biglietto b) {
-		EntityManager em= JpaUtil.getEntityManagerFactory().createEntityManager();
+		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
 			b.setValidita(false);
@@ -70,16 +72,16 @@ public class MainProject {
 			em.getTransaction().commit();
 		} catch (Exception e) {
 			System.out.println("Errore nella vidimazione del biglietto!" + e);
-		}finally {
-	    em.close();
+		} finally {
+			em.close();
 		}
 	}
-	
+
 	static public Biglietto cercaPerId(long id) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
-			Biglietto c =  em.find(Biglietto.class, id);
+			Biglietto c = em.find(Biglietto.class, id);
 			em.getTransaction().commit();
 			return c;
 		} catch (Exception e) {
@@ -95,7 +97,7 @@ public class MainProject {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
-			PuntoEmissione c =  em.find(PuntoEmissione.class, id);
+			PuntoEmissione c = em.find(PuntoEmissione.class, id);
 			em.getTransaction().commit();
 			return c;
 		} catch (Exception e) {
