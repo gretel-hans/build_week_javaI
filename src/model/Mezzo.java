@@ -2,8 +2,6 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -29,8 +27,8 @@ public class Mezzo extends MezzoDAO{
 	@Enumerated(EnumType.STRING)
 	private StatoMezzo status;
 	
-	@OneToMany
-	private List<Biglietto> bigliettiVidimati = new ArrayList<Biglietto>();
+	@OneToMany(mappedBy = "mezzo")
+	private List<Biglietto> biglietti = new ArrayList<Biglietto>();
 
 	public Mezzo() {
 		super();
@@ -41,7 +39,7 @@ public class Mezzo extends MezzoDAO{
 		super();
 		this.capienza = capienza;
 		this.status = status;
-		this.bigliettiVidimati = bigliettiVidimati;
+		this.biglietti = bigliettiVidimati;
 	}
 
 	public Integer getCapienza() {
@@ -61,17 +59,17 @@ public class Mezzo extends MezzoDAO{
 	}
 
 	public List<Biglietto> getBigliettiVidimati() {
-		return bigliettiVidimati;
+		return biglietti;
 	}
 
 	public void setBigliettiVidimati(List<Biglietto> bigliettiVidimati) {
-		this.bigliettiVidimati = bigliettiVidimati;
+		this.biglietti = bigliettiVidimati;
 	}
 
 
 	@Override
 	public String toString() {
-		return "Mezzi [capienza=" + capienza + ", status=" + status + ", bigliettiVidimati=" + bigliettiVidimati + "]";
+		return "Mezzi [capienza=" + capienza + ", status=" + status + ", bigliettiVidimati=" + biglietti + "]";
 	}
 	
 	
