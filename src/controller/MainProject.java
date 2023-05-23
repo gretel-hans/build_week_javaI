@@ -13,6 +13,7 @@ import model.DistributoreAutomatico;
 import model.Mezzo;
 import model.PuntoEmissione;
 import model.RivenditoreAutorizzato;
+import model.Tratta;
 import utils.JpaUtil;
 
 public class MainProject {
@@ -71,6 +72,11 @@ public class MainProject {
 		MezzoDAO md = new MezzoDAO();
 		md.salvaMezzo(m1);
 		timbraBiglieto(br);
+
+		MezzoDAO mdd = new MezzoDAO();
+		Tratta tratta = new Tratta("Piazza Verdi", "Piazza Rossi", 1.20);
+		mdd.percorriTratta(tratta, m1);
+
 	}
 
 	static public void timbraBiglieto(Biglietto b) {

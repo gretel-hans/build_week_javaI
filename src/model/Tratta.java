@@ -12,8 +12,8 @@ import javax.persistence.Table;
 @Table(name = "tratte")
 public class Tratta {
     @Id
-    @SequenceGenerator(name = "seq_documenti_emessi", sequenceName = "seq_documenti_emessi", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_documenti_emessi")
+    @SequenceGenerator(name = "seq_tratte", sequenceName = "seq_tratte", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tratte")
     private long id_tratta;
     @Column(nullable = false)
     private String zona_partenza;
@@ -21,8 +21,7 @@ public class Tratta {
     private String capolinea;
     @Column(nullable = false)
     private double tempo_medio_percorrenza;
-    @Column(nullable = true)
-    private double tempo_effettivo_percorrenza;
+   
 
     public Tratta() {}
     public Tratta(String zona_partenza, String capolinea, double tempo_medio_percorrenza) {

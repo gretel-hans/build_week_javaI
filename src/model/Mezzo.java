@@ -34,9 +34,6 @@ public class Mezzo extends MezzoDAO{
 	public Mezzo() {
 		super();
 	}
-	
-	@OneToOne
-	private Tratta tratta;
 
 	public Mezzo(Integer capienza, StatoMezzo status, List<Biglietto> bigliettiVidimati) {
 		super();
