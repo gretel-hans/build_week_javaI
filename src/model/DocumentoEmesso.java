@@ -23,7 +23,7 @@ public class DocumentoEmesso {
     @SequenceGenerator(name = "seq_documenti_emessi", sequenceName = "seq_documenti_emessi", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_documenti_emessi")
     private long id;
-    @OneToOne(cascade = CascadeType.PERSIST)      
+    @OneToOne     
     private  PuntoEmissione puntoEmissione;
     @Column(name = "data_emissione", nullable = false)                 
     private  LocalDate dataEmissione;
@@ -46,5 +46,15 @@ public class DocumentoEmesso {
     public void setDataEmissione(LocalDate dataEmissione) {
         this.dataEmissione = dataEmissione;
     }
+    
+	public long getId() {
+		return id;
+	}
+	@Override
+	public String toString() {
+		return "DocumentoEmesso [id=" + id + ", puntoEmissione=" + puntoEmissione + ", dataEmissione=" + dataEmissione
+				+ "]";
+	}
 
+    
 }

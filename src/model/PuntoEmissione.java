@@ -36,6 +36,12 @@ public abstract class PuntoEmissione {
     public void setId(long id) {
         this.id_punto_emissione = id;
     }
+
+	@Override
+	public String toString() {
+		return "PuntoEmissione [id_punto_emissione=" + id_punto_emissione + ", indirizzo=" + indirizzo + "]";
+	}
+    
 }
 
 

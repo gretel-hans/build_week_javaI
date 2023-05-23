@@ -29,9 +29,10 @@ public class Biglietto extends DocumentoEmesso {
 		this.validita = validita;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Biglietto [validita=" + validita + "]";
+		return super.toString() + "Biglietto [validita=" + validita + "]";
 	}
 	
 	
