@@ -3,11 +3,13 @@ package model;
 import java.sql.Date;
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -26,7 +28,8 @@ public class Tessera {
     @Column
     private LocalDate  data_scadenza;
     
-    public Tessera() {}
+   
+	public Tessera() {}
     public Tessera(LocalDate data_inizio) {
         this.data_inizio = data_inizio;
         this.data_scadenza = this.data_inizio.plusDays(365);

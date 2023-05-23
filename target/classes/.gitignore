@@ -1,5 +1,8 @@
-/META-INF/
-/controller/
-/dao/
 /enums/
 /model/
+<<<<<<< HEAD
+/META-INF/
+=======
+>>>>>>> main
+/controller/
+/dao/
