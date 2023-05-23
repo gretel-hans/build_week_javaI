@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import dao.MezzoDAO;
@@ -34,6 +35,8 @@ public class Mezzo extends MezzoDAO{
 		super();
 	}
 	
+	@OneToOne
+	private Tratta tratta;
 
 	public Mezzo(Integer capienza, StatoMezzo status, List<Biglietto> bigliettiVidimati) {
 		super();
@@ -41,6 +44,8 @@ public class Mezzo extends MezzoDAO{
 		this.status = status;
 		this.biglietti = bigliettiVidimati;
 	}
+
+	
 
 	public Integer getCapienza() {
 		return capienza;
