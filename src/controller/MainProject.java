@@ -2,25 +2,23 @@ package controller;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.EntityManager;
+
 import dao.BigliettoDAO;
 import dao.MezzoDAO;
 import enums.StatoMezzo;
-import model.Abbonamento;
+import model.Biglietto;
 import model.DistributoreAutomatico;
 import model.Mezzo;
 import model.PuntoEmissione;
 import model.RivenditoreAutorizzato;
-import model.Tessera;
-import model.Utente;
-import model.Abbonamento.durata;
-import model.Biglietto;
 import utils.JpaUtil;
 
-
 public class MainProject {
-	
+
 	static EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+
 	public static void main(String[] args) {
 		
 		/*PuntoEmissione disAut = new DistributoreAutomatico("Via Verdi 51");
@@ -74,9 +72,9 @@ public class MainProject {
 		md.salvaMezzo(m1);
 		timbraBiglieto(br);
 	}
-	
+
 	static public void timbraBiglieto(Biglietto b) {
-		EntityManager em= JpaUtil.getEntityManagerFactory().createEntityManager();
+		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
 			b.setValidita(false);
@@ -85,16 +83,16 @@ public class MainProject {
 			System.out.println("Biglietto con id " + b.getId() + " timbrato!");
 		} catch (Exception e) {
 			System.out.println("Errore nella vidimazione del biglietto!" + e);
-		}finally {
-	    em.close();
+		} finally {
+			em.close();
 		}
 	}
-	
+
 	static public Biglietto cercaPerId(long id) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
-			Biglietto c =  em.find(Biglietto.class, id);
+			Biglietto c = em.find(Biglietto.class, id);
 			em.getTransaction().commit();
 			return c;
 		} catch (Exception e) {
@@ -110,7 +108,7 @@ public class MainProject {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
-			PuntoEmissione c =  em.find(PuntoEmissione.class, id);
+			PuntoEmissione c = em.find(PuntoEmissione.class, id);
 			em.getTransaction().commit();
 			return c;
 		} catch (Exception e) {
