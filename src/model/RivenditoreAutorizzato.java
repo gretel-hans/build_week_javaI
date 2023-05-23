@@ -14,4 +14,13 @@ public class RivenditoreAutorizzato extends PuntoEmissione {
 		super(indirizzo);
 	}
 
+	
+	@Override
+	public String toString() {
+		return  super.toString() +  "RivenditoreAutorizzato";
+	}
+
+	
+	
+
 }

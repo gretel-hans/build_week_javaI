@@ -50,5 +50,11 @@ public class Abbonamento extends DocumentoEmesso {
     public void setDurata(durata durata) {
         this.durata = durata;
     }
+
+	@Override
+	public String toString() {
+		return super.toString() +  "Abbonamento [utente=" + utente + ", durata=" + durata + "]";
+	}
+    
     
 }

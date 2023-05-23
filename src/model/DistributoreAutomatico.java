@@ -28,5 +28,10 @@ public class DistributoreAutomatico extends PuntoEmissione{
     public void setInServizio(Boolean inServizio) {
         this.inServizio = inServizio;
     }
+	@Override
+	public String toString() {
+		return super.toString() + "DistributoreAutomatico [inServizio=" + inServizio + "]";
+	}
+    
     
 }
