@@ -75,11 +75,7 @@ public class MainProject {
 		m1.percorriTratta(t1);
 
 	}
-
-
-
 	
-
 	static public PuntoEmissione cercaPEperId(long id) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
