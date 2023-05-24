@@ -2,6 +2,7 @@ package model;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -22,7 +23,7 @@ public class RegistroStatoMezzi {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Mezzo mezzo;
 
     @Column(name = "stato_mezzo")
@@ -31,7 +32,6 @@ public class RegistroStatoMezzi {
 
     @Column(name = "data_inizio_stato")
     private LocalDate dataInizioStato;
-
 
     public RegistroStatoMezzi() {
     }
@@ -42,7 +42,6 @@ public class RegistroStatoMezzi {
         this.dataInizioStato = dataInizioStato;
     }
 
-    
     public long getId() {
         return id;
     }

@@ -21,12 +21,12 @@ import dao.RegistroTratteDAO;
 @DiscriminatorColumn(name = "tipo_mezzo")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "mezzi")
-public class Mezzo extends MezzoDAO{
-	
+public class Mezzo extends MezzoDAO {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	 private long id;
-	
+	private long id;
+
 	@OneToMany(mappedBy = "mezzo")
 	private List<Biglietto> biglietti = new ArrayList<Biglietto>();
 
@@ -39,12 +39,11 @@ public class Mezzo extends MezzoDAO{
 		this.biglietti = biglietti;
 	}
 
-	public void percorriTratta(Tratta t){
+	public void percorriTratta(Tratta t) {
 		RegistroTratteDAO rtd = new RegistroTratteDAO();
-		RegistroTratte rt = new RegistroTratte(t,this);
+		RegistroTratte rt = new RegistroTratte(t, this);
 		rtd.saveRegistro(rt);
 	}
-
 
 	public List<Biglietto> getBigliettiVidimati() {
 		return biglietti;
@@ -54,11 +53,21 @@ public class Mezzo extends MezzoDAO{
 		this.biglietti = biglietti;
 	}
 
-
 	@Override
 	public String toString() {
-		return "Mezzi [bigliettiVidimati=" + biglietti + "]";
+		return "Mezzi [bigliettiVidimati=" + "]";
 	}
-	
-	
+
+	public long getId() {
+		return id;
+	}
+
+	public List<Biglietto> getBiglietti() {
+		return biglietti;
+	}
+
+	public void setBiglietti(List<Biglietto> biglietti) {
+		this.biglietti = biglietti;
+	}
+
 }
