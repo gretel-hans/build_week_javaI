@@ -8,10 +8,13 @@ import javax.persistence.EntityManager;
 import dao.BigliettoDAO;
 import dao.MezzoDAO;
 import dao.RegistroDAO;
+import dao.TrattaDao;
+import enums.StatoMezzo;
 import model.Biglietto;
 import model.DistributoreAutomatico;
 import model.Mezzo;
 import model.PuntoEmissione;
+import model.RegistroStatoMezzi;
 import model.RivenditoreAutorizzato;
 import model.Tratta;
 import utils.JpaUtil;
@@ -21,29 +24,6 @@ public class MainProject {
 	static EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 
 	public static void main(String[] args) {
-		
-		/*PuntoEmissione disAut = new DistributoreAutomatico("Via Verdi 51");
-		Biglietto b1 = new Biglietto(disAut, LocalDate.of(2023, 5, 23));
-		BigliettoDAO bd = new BigliettoDAO();
-		bd.salvaBiglietto(b1);
-		List<Biglietto> bv = new ArrayList<Biglietto>();
-		 bv.add(b1);
-		
-		 //cercaPEperId(1);
-		 
-		 Biglietto b2 = new Biglietto(disAut, LocalDate.of(2023, 5, 23));
-		 bd.salvaBiglietto(b2);
-		
-		Mezzo m1 = new Mezzo(30, StatoMezzo.SERVIZIO, bv);
-		MezzoDAO md = new MezzoDAO();
-		//md.salvaMezzo(m1);
-		//timbraBiglieto(b1);
-	
-	PuntoEmissione rivAut = new RivenditoreAutorizzato("Via Rossi 15");
-	Tessera tessera = new Tessera(LocalDate.of(2020, 1, 1));
-		Utente mario = new Utente(tessera, "Mario", "Rossi");
-		Abbonamento abbonamento = new Abbonamento(rivAut, LocalDate.of(2021, 4,6), mario, durata.MENSILE);
-		*/
 		
 		PuntoEmissione disAut = new DistributoreAutomatico("Via Verdi 51");
 		PuntoEmissione rivAut = new RivenditoreAutorizzato("Via Rossi 15");
@@ -73,18 +53,27 @@ public class MainProject {
 		MezzoDAO md = new MezzoDAO();
 		RegistroDAO rd= new RegistroDAO();
 		md.salvaMezzo(m1);
-		timbraBiglieto(br);
+		md.salvaMezzo(m2);
+		//timbraBiglieto(br);
+		Mezzo mezzo=md.trovaMezzo(1);
+		Mezzo mezzo1=md.trovaMezzo(2);
 
-		MezzoDAO mdd = new MezzoDAO();
-		Tratta tratta = new Tratta("Piazza Verdi", "Piazza Rossi", 1.20);
-		mdd.percorriTratta(tratta, m1);
+		RegistroStatoMezzi rsm=new RegistroStatoMezzi(mezzo, StatoMezzo.SERVIZIO, LocalDate.now());
+		RegistroStatoMezzi rsm1=new RegistroStatoMezzi(mezzo, StatoMezzo.MANUTENZIONE, LocalDate.of(2023,06,03));
+		rd.saveRegistro(rsm);
+		rd.saveRegistro(rsm1);
+
+		RegistroStatoMezzi rsm2=new RegistroStatoMezzi(mezzo1, StatoMezzo.SERVIZIO, LocalDate.now());
+		rd.saveRegistro(rsm2);
+
+		Tratta t1 = new Tratta("Piazza Verdi", "Piazza Rossi", 1.20);
+		TrattaDao td = new TrattaDao();
+		td.saveTratta(t1);
+
+		m1.percorriTratta(t1);
 
 	}
-
-
-
 	
-
 	static public PuntoEmissione cercaPEperId(long id) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {

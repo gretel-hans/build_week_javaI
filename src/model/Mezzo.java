@@ -11,6 +11,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import dao.MezzoDAO;
+import dao.RegistroTratteDAO;
 
 @Entity
 @Table(name = "mezzi")
@@ -36,7 +37,11 @@ public class Mezzo extends MezzoDAO{
 		this.biglietti = bigliettiVidimati;
 	}
 
-	
+	public void percorriTratta(Tratta t){
+		RegistroTratteDAO rtd = new RegistroTratteDAO();
+		RegistroTratte rt = new RegistroTratte(t,this);
+		rtd.saveRegistro(rt);
+	}
 
 	public Integer getCapienza() {
 		return capienza;

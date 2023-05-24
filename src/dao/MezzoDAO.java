@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import model.Biglietto;
 import model.Mezzo;
 import model.Tratta;
-import model.TrattePercorse;
+import model.RegistroTratte;
 import utils.JpaUtil;
 
 public class MezzoDAO implements IMezzoDAO {
@@ -93,6 +93,7 @@ public class MezzoDAO implements IMezzoDAO {
 		} catch (Exception e) {
 			System.out.println("Errore nella vidimazione del biglietto!" + e);
 		} finally {
+<<<<<<< HEAD
 			em.close();
 		}
 	}
@@ -109,6 +110,8 @@ public class MezzoDAO implements IMezzoDAO {
 			em.getTransaction().rollback();
 			System.out.println("Errore su salvataggio del percorso!" + e);
 		} finally {
+=======
+>>>>>>> main
 			em.close();
 		}
 	}
