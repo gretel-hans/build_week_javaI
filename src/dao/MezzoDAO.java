@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 
 import model.Biglietto;
 import model.Mezzo;
+import model.Tratta;
+import model.RegistroTratte;
 import utils.JpaUtil;
 
 public class MezzoDAO implements IMezzoDAO{

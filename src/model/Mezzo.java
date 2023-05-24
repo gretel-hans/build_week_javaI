@@ -7,9 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import dao.MezzoDAO;
+import dao.RegistroTratteDAO;
 
 @Entity
 @Table(name = "mezzi")
@@ -28,12 +30,17 @@ public class Mezzo extends MezzoDAO{
 	public Mezzo() {
 		super();
 	}
-	
 
 	public Mezzo(Integer capienza, List<Biglietto> bigliettiVidimati) {
 		super();
 		this.capienza = capienza;
 		this.biglietti = bigliettiVidimati;
+	}
+
+	public void percorriTratta(Tratta t){
+		RegistroTratteDAO rtd = new RegistroTratteDAO();
+		RegistroTratte rt = new RegistroTratte(t,this);
+		rtd.saveRegistro(rt);
 	}
 
 	public Integer getCapienza() {
