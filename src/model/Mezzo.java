@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import dao.MezzoDAO;
@@ -54,10 +53,13 @@ public class Mezzo extends MezzoDAO{
 		this.biglietti = biglietti;
 	}
 
+	public void getNumeroBiglietti() {
+		this.biglietti.forEach(b -> System.out.println(b));
+	}
 
 	@Override
 	public String toString() {
-		return "Mezzi [bigliettiVidimati=" + biglietti + "]";
+		return "Mezzi [capienza=" + capienza;
 	}
 	
 	
