@@ -1,5 +1,6 @@
 package model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +17,7 @@ public class RegistroTratte {
     @SequenceGenerator(name = "seq_tratte_percorse", sequenceName = "seq_tratte_percorse", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tratte_percorse")
     private long id_tratta_percorsa;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.MERGE)
     private Tratta tratta;
     @OneToOne
     Mezzo mezzo;

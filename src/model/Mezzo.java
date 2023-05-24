@@ -2,12 +2,12 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import dao.MezzoDAO;
@@ -60,10 +60,13 @@ public class Mezzo extends MezzoDAO{
 		this.biglietti = bigliettiVidimati;
 	}
 
+	public void getNumeroBiglietti() {
+		this.biglietti.forEach(b -> System.out.println(b));
+	}
 
 	@Override
 	public String toString() {
-		return "Mezzi [capienza=" + capienza + ", bigliettiVidimati=" + biglietti + "]";
+		return "Mezzi [capienza=" + capienza;
 	}
 	
 	
