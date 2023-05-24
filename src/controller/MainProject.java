@@ -7,11 +7,13 @@ import javax.persistence.EntityManager;
 
 import dao.BigliettoDAO;
 import dao.MezzoDAO;
+import dao.RegistroDAO;
 import enums.StatoMezzo;
 import model.Biglietto;
 import model.DistributoreAutomatico;
 import model.Mezzo;
 import model.PuntoEmissione;
+import model.RegistroStatoMezzi;
 import model.RivenditoreAutorizzato;
 import model.Tratta;
 import utils.JpaUtil;
@@ -59,56 +61,38 @@ public class MainProject {
 		BigliettoDAO bd = new BigliettoDAO();
 		bd.salvaBiglietto(b1);
 		bd.salvaBiglietto(b2);
-		Biglietto br = cercaPerId(1);
-		Biglietto br2 = cercaPerId(2);
-		System.out.println(br);
-		System.out.println(br2);
+		//Biglietto br = cercaPerId(1);
+		//Biglietto br2 = cercaPerId(2);
+		//System.out.println(br);
+		//System.out.println(br2);
 		List<Biglietto> listaBiglietti = new ArrayList<Biglietto>();
-		listaBiglietti.add(br);
-		listaBiglietti.add(br2);
+		//listaBiglietti.add(br);
+		//listaBiglietti.add(br2);
 		
 		
-		Mezzo m1 = new Mezzo(30, StatoMezzo.SERVIZIO, listaBiglietti);
+		Mezzo m1 = new Mezzo(30, listaBiglietti);
+		Mezzo m2 = new Mezzo(50, listaBiglietti);
 		MezzoDAO md = new MezzoDAO();
+		RegistroDAO rd= new RegistroDAO();
 		md.salvaMezzo(m1);
-		timbraBiglieto(br);
+		md.salvaMezzo(m2);
+		//timbraBiglieto(br);
+		Mezzo mezzo=md.trovaMezzo(1);
+		Mezzo mezzo1=md.trovaMezzo(2);
 
-		MezzoDAO mdd = new MezzoDAO();
-		Tratta tratta = new Tratta("Piazza Verdi", "Piazza Rossi", 1.20);
-		mdd.percorriTratta(tratta, m1);
+		RegistroStatoMezzi rsm=new RegistroStatoMezzi(mezzo, StatoMezzo.SERVIZIO, LocalDate.now());
+		RegistroStatoMezzi rsm1=new RegistroStatoMezzi(mezzo, StatoMezzo.MANUTENZIONE, LocalDate.of(2023,06,03));
+		rd.saveRegistro(rsm);
+		rd.saveRegistro(rsm1);
+
+		RegistroStatoMezzi rsm2=new RegistroStatoMezzi(mezzo1, StatoMezzo.SERVIZIO, LocalDate.now());
+		rd.saveRegistro(rsm2);
 
 	}
 
-	static public void timbraBiglieto(Biglietto b) {
-		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-		try {
-			em.getTransaction().begin();
-			b.setValidita(false);
-			em.merge(b);
-			em.getTransaction().commit();
-			System.out.println("Biglietto con id " + b.getId() + " timbrato!");
-		} catch (Exception e) {
-			System.out.println("Errore nella vidimazione del biglietto!" + e);
-		} finally {
-			em.close();
-		}
-	}
 
-	static public Biglietto cercaPerId(long id) {
-		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-		try {
-			em.getTransaction().begin();
-			Biglietto c = em.find(Biglietto.class, id);
-			em.getTransaction().commit();
-			return c;
-		} catch (Exception e) {
-			em.getTransaction().rollback();
-			System.out.println("Errore nella ricerca!");
-		} finally {
-			em.close();
-		}
-		return null;
-	}
+
+	
 
 	static public PuntoEmissione cercaPEperId(long id) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
