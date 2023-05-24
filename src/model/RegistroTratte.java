@@ -10,21 +10,21 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tratte_percorse")
-public class TrattePercorse {
+@Table(name = "registro_tratte")
+public class RegistroTratte {
     @Id
     @SequenceGenerator(name = "seq_tratte_percorse", sequenceName = "seq_tratte_percorse", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tratte_percorse")
     private long id_tratta_percorsa;
     @OneToOne
-    Tratta tratta;
+    private Tratta tratta;
     @OneToOne
     Mezzo mezzo;
     @Column(nullable = true)
     private double tempo_effettivo_percorrenza;
 
-    public TrattePercorse() {}
-    public TrattePercorse(Tratta tratta, Mezzo mezzo) {
+    public RegistroTratte() {}
+    public RegistroTratte(Tratta tratta, Mezzo mezzo) {
         this.tratta = tratta;
         this.mezzo = mezzo;
         this.tempo_effettivo_percorrenza = this.tratta.getTempo_medio_percorrenza() + (Math.random() * 0.20);

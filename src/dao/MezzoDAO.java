@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import model.Biglietto;
 import model.Mezzo;
 import model.Tratta;
-import model.TrattePercorse;
+import model.RegistroTratte;
 import utils.JpaUtil;
 
 public class MezzoDAO implements IMezziDAO{
@@ -36,7 +36,7 @@ public class MezzoDAO implements IMezziDAO{
 	@Override
 	public void percorriTratta(Tratta tratta, Mezzo mezzo) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-		TrattePercorse tp = new TrattePercorse(tratta, mezzo);
+		RegistroTratte tp = new RegistroTratte(tratta, mezzo);
 		try {
 			em.getTransaction().begin();
 			em.persist(tp);
