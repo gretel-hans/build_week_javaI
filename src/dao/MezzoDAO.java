@@ -11,11 +11,10 @@ import model.Tratta;
 import model.TrattePercorse;
 import utils.JpaUtil;
 
-public class MezzoDAO implements IMezzoDAO{
+public class MezzoDAO implements IMezzoDAO {
 
-	//static Logger log = LoggerFactory.getLogger(MezzoDAO.class);
-	
-	
+	// static Logger log = LoggerFactory.getLogger(MezzoDAO.class);
+
 	@Override
 	public void salvaMezzo(Mezzo m) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
@@ -27,28 +26,27 @@ public class MezzoDAO implements IMezzoDAO{
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			System.out.println("Errore su salvataggio del Mezzo!" + e);
-		}finally {
+		} finally {
 			em.close();
 		}
-		
+
 	}
 
 	@Override
-<<<<<<< HEAD
 	public Mezzo trovaMezzo(long id) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
-			Mezzo m=em.find(Mezzo.class, id);
+			Mezzo m = em.find(Mezzo.class, id);
 			em.getTransaction().commit();
 			return m;
 		} catch (Exception e) {
 			System.out.println("Errore su lettura del Mezzo!" + e);
-		}finally {
+		} finally {
 			em.close();
 		}
 		return null;
-		
+
 	}
 
 	@Override
@@ -84,7 +82,7 @@ public class MezzoDAO implements IMezzoDAO{
 	}
 
 	@Override
-	 public void timbraBiglietto(Biglietto b) {
+	public void timbraBiglietto(Biglietto b) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
@@ -97,7 +95,8 @@ public class MezzoDAO implements IMezzoDAO{
 		} finally {
 			em.close();
 		}
-=======
+	}
+
 	public void percorriTratta(Tratta tratta, Mezzo mezzo) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		TrattePercorse tp = new TrattePercorse(tratta, mezzo);
@@ -109,10 +108,9 @@ public class MezzoDAO implements IMezzoDAO{
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			System.out.println("Errore su salvataggio del percorso!" + e);
-		}finally {
+		} finally {
 			em.close();
 		}
->>>>>>> origin/Gabriele
 	}
 
 }
