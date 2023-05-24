@@ -27,7 +27,7 @@ public class RegistroTratte {
     public RegistroTratte(Tratta tratta, Mezzo mezzo) {
         this.tratta = tratta;
         this.mezzo = mezzo;
-        this.tempo_effettivo_percorrenza = this.tratta.getTempo_medio_percorrenza() + (Math.random() * 0.20);
+        this.tempo_effettivo_percorrenza = this.tratta.getTempo_medio_percorrenza() + Math.floor((Math.random() * 0.20)*100)/100;
     }
 
     public long getId_tratta_percorsa() {
