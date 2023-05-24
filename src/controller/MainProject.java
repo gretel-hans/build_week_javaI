@@ -8,13 +8,12 @@ import javax.persistence.EntityManager;
 import dao.BigliettoDAO;
 import dao.MezzoDAO;
 import dao.RegistroDAO;
-import enums.StatoMezzo;
 import model.Biglietto;
 import model.DistributoreAutomatico;
 import model.Mezzo;
 import model.PuntoEmissione;
-import model.RegistroStatoMezzi;
 import model.RivenditoreAutorizzato;
+import model.Tratta;
 import utils.JpaUtil;
 
 public class MainProject {
@@ -74,18 +73,11 @@ public class MainProject {
 		MezzoDAO md = new MezzoDAO();
 		RegistroDAO rd= new RegistroDAO();
 		md.salvaMezzo(m1);
-		md.salvaMezzo(m2);
-		//timbraBiglieto(br);
-		Mezzo mezzo=md.trovaMezzo(1);
-		Mezzo mezzo1=md.trovaMezzo(2);
+		timbraBiglieto(br);
 
-		RegistroStatoMezzi rsm=new RegistroStatoMezzi(mezzo, StatoMezzo.SERVIZIO, LocalDate.now());
-		RegistroStatoMezzi rsm1=new RegistroStatoMezzi(mezzo, StatoMezzo.MANUTENZIONE, LocalDate.of(2023,06,03));
-		rd.saveRegistro(rsm);
-		rd.saveRegistro(rsm1);
-
-		RegistroStatoMezzi rsm2=new RegistroStatoMezzi(mezzo1, StatoMezzo.SERVIZIO, LocalDate.now());
-		rd.saveRegistro(rsm2);
+		MezzoDAO mdd = new MezzoDAO();
+		Tratta tratta = new Tratta("Piazza Verdi", "Piazza Rossi", 1.20);
+		mdd.percorriTratta(tratta, m1);
 
 	}
 
