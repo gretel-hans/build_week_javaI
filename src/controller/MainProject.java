@@ -11,6 +11,7 @@ import dao.RegistroDAO;
 import dao.RegistroTratteDAO;
 import dao.TrattaDao;
 import enums.StatoMezzo;
+import model.Autobus;
 import model.Biglietto;
 import model.DistributoreAutomatico;
 import model.Mezzo;
@@ -18,6 +19,7 @@ import model.PuntoEmissione;
 import model.RegistroStatoMezzi;
 import model.RegistroTratte;
 import model.RivenditoreAutorizzato;
+import model.Tram;
 import model.Tratta;
 import utils.JpaUtil;
 
@@ -50,8 +52,8 @@ public class MainProject {
 		//listaBiglietti.add(br2);
 		
 		
-		Mezzo m1 = new Mezzo(30, listaBiglietti);
-		Mezzo m2 = new Mezzo(50, listaBiglietti);
+		Mezzo m1 = new Autobus(listaBiglietti);
+		Mezzo m2 = new Tram(listaBiglietti);
 		MezzoDAO md = new MezzoDAO();
 		RegistroDAO rd= new RegistroDAO();
 		md.salvaMezzo(m1);
