@@ -70,6 +70,7 @@ public class Tratta {
     public String toString() {
         return "Tratta [id_tratta=" + id_tratta + ", zona_partenza=" + zona_partenza + ", capolinea=" + capolinea
                 + ", tempo_medio_percorrenza=" + getTempo_medio_percorrenza() + "]";
+    }
 
     public boolean isAgibile() {
         return agibile;
