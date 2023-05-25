@@ -14,7 +14,7 @@ public class TesseraDAO implements ITesseraDAO {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             em.getTransaction().begin();
-            em.persist(t);
+            em.persist(em.merge(t));
             em.getTransaction().commit();
             System.out.println(t + " salvato nel DB!!");
         } catch (Exception e) {

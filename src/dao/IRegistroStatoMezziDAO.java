@@ -5,9 +5,11 @@ import java.util.List;
 import model.RegistroStatoMezzi;
 
 public interface IRegistroStatoMezziDAO {
-    public void saveRegistro(RegistroStatoMezzi r);
-    public void updateRegistro(RegistroStatoMezzi r);
-    public void deleteRegistro(long id);
-    public List<RegistroStatoMezzi> showAllRegistro();
+    public void saveOrUpdateRegistroStato(RegistroStatoMezzi r);
+
+    public void deleteRegistroStato(long id);
+
+    public List<RegistroStatoMezzi> showAllRegistroStato();
+
     public RegistroStatoMezzi trovaRegistroStatoMezzi(long id);
 }
