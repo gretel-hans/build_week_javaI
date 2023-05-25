@@ -18,7 +18,7 @@ public class MezzoDAO implements IMezzoDAO {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
-			em.persist(m);
+			em.persist(em.merge(m));
 			em.getTransaction().commit();
 			System.out.println("Mezzo salvato nel DB!");
 		} catch (Exception e) {
@@ -64,16 +64,18 @@ public class MezzoDAO implements IMezzoDAO {
 	}
 
 	@Override
-	public void deleteMezzo(Mezzo m) {
+	public void deleteMezzo(long id) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
+			Mezzo m = em.find(Mezzo.class, id);
 			em.remove(m);
 			em.getTransaction().commit();
-			System.out.println("Mezzo eliminato nel DB!!");
+			System.out.println("Elememento " + m + " eliminato dal DB!!");
 		} catch (Exception e) {
 			em.getTransaction().rollback();
-			System.out.println("ERRORE mezzo NON eliminato nel DB!!");
+			System.out.println("Errore nella cancellazione!!");
+			e.printStackTrace();
 		} finally {
 			em.close();
 		}
