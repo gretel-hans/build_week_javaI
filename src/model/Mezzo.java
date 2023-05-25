@@ -41,7 +41,7 @@ public class Mezzo extends MezzoDAO{
 	public void percorriTratta(Tratta t){
 		RegistroTratteDAO rtd = new RegistroTratteDAO();
 		RegistroTratte rt = new RegistroTratte(t,this);
-		rtd.saveRegistro(rt);
+		rtd.saveRegistroTratte(rt);
 	}
 
 
@@ -59,7 +59,7 @@ public class Mezzo extends MezzoDAO{
 
 	@Override
 	public String toString() {
-		return "Mezzi [capienza=" + capienza;
+		return "Mezzo";
 	}
 	
 	
