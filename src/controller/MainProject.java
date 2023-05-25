@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 
 import model.Abbonamento.durata;
 import model.Autobus;
+import model.Biglietto;
 import model.DistributoreAutomatico;
 import model.DocumentoEmesso;
 import model.Mezzo;
@@ -21,7 +22,7 @@ public class MainProject {
 	static EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 
 	public static void main(String[] args) {
-
+		/* 
 		List<Utente> lt = new ArrayList<Utente>();
 		
 		lt.add(new Utente(new Tessera(LocalDate.now()), "Vincenzo", "De Vito"));
@@ -62,7 +63,27 @@ public class MainProject {
 
 		List<Mezzo> lm = new ArrayList<Mezzo>();
 
-		lm.add(new Autobus());
+		lm.add(new Autobus());*/
+
+		// List<PuntoEmissione> lpe = new ArrayList<PuntoEmissione>();
+
+		// lpe.add(new DistributoreAutomatico("Via Verdi 14"));
+		// lpe.add(new DistributoreAutomatico("Via Gialli 14"));
+		// lpe.add(new DistributoreAutomatico("Via Io 14"));
+		// lpe.add(new DistributoreAutomatico("Via Tu 14"));
+		// lpe.add(new DistributoreAutomatico("Via Noi 14"));
+		// lpe.add(new DistributoreAutomatico("Via Voi 14"));
+
+	//	lpe.forEach(l -> l.salvaPuntoVendita(l));
+
+
+		List<Mezzo> lm = new ArrayList<Mezzo>();
+		lm.add(new Autobus("Mercedes bus"));
+		lm.get(0).timbraBiglietto( new Biglietto(new DistributoreAutomatico("Via Io 14"), LocalDate.now()),LocalDate.now());
+		System.out.println();
+		lm.get(0).getNumeriBigliettiVidimatiSuUnMezzo(1);
+		lm.get(0).getNumeriBigliettiVidimatiTraDueDate(LocalDate.of(2023,05,26), LocalDate.of(2023,05,27));
+
 	}
 
 	

@@ -1,7 +1,5 @@
 package model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 
 @Entity
@@ -13,8 +11,8 @@ public class Tram extends Mezzo{
 		super();
 	}
 
-	public Tram(List<DocumentoEmesso> biglietti) {
-		super(biglietti);
+	public Tram(String nomeMezzo) {
+		super(nomeMezzo);
 		this.capienza = capienza;
 	}
 

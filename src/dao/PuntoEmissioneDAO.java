@@ -28,7 +28,7 @@ public class PuntoEmissioneDAO implements IPuntoEmissioneDAO{
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
-			em.persist(pe);
+			em.persist(em.merge(pe));
 			em.getTransaction().commit();
 			System.out.println("Elemento " + pe + " salvato nel DB!!");
 		} catch (Exception e) {

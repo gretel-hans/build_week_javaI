@@ -1,6 +1,10 @@
 package dao;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
@@ -82,19 +86,39 @@ public class MezzoDAO implements IMezzoDAO {
 	}
 
 	@Override
-	public void timbraBiglietto(Biglietto b) {
+	public void getNumeriBigliettiVidimatiSuUnMezzo(long id) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
-			em.getTransaction().begin();
-			b.setValidita(false);
-			em.merge(b);
-			em.getTransaction().commit();
-			System.out.println("Biglietto con id " + b.getId() + " timbrato!");
+			Query q=em.createQuery("SELECT COUNT(r) FROM RegistroBigliettiVidimati r WHERE r.mezzo.id = :parametro_id");
+			long conteggio= (long)q.setParameter("parametro_id", id).getSingleResult();
+			System.out.println("Il mezzo con id:"+id +" ha vidimato "+conteggio +" biglietti");
 		} catch (Exception e) {
-			System.out.println("Errore nella vidimazione del biglietto!" + e);
+			em.getTransaction().rollback();
+			System.out.println("Errore nel conteggio dei biglietti vidimati dal mezzo con id: !!"+id+e);
+			e.printStackTrace();
 		} finally {
 			em.close();
 		}
 	}
+
+	@Override
+	public void getNumeriBigliettiVidimatiTraDueDate(LocalDate inizio, LocalDate fine) {
+		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+		try {
+			//select count(*) from registro_biglietti_vidimati where registro_biglietti_vidimati.data_vidimazione between '2023-05-24' AND '2023-05-29'
+
+			Query q=em.createQuery("SELECT COUNT(r) FROM RegistroBigliettiVidimati r WHERE r.dataVidimazione BETWEEN :data_inizio AND :data_fine");
+			long conteggio= (long)q.setParameter("data_inizio", inizio).setParameter("data_fine", fine).getSingleResult();
+			System.out.println("Sono stati vidimati "+conteggio +" biglietti tra il "+inizio +" e "+fine);
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println("Errore nel conteggio dei biglietti vidimati tra"+inizio +" e "+fine+e);
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+	}
+
+    
 
 }

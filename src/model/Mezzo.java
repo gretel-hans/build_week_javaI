@@ -1,8 +1,10 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import dao.MezzoDAO;
+import dao.RegistroBigliettiVidimatiDAO;
 import dao.RegistroTratteDAO;
 
 @Entity
@@ -26,17 +29,19 @@ public class Mezzo extends MezzoDAO {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@OneToMany (mappedBy = "id")
-	private List<DocumentoEmesso> biglietti = new ArrayList<DocumentoEmesso>();
+	@Column(name="nome_mezzo")
+	private String nomeMezzo;
+
 
 	public Mezzo() {
 		super();
 	}
 
-	public Mezzo(List<DocumentoEmesso> biglietti) {
+	public Mezzo(String nomeMezzo) {
 		super();
-		this.biglietti = biglietti;
+		this.nomeMezzo = nomeMezzo;
 	}
+
 
 	public void percorriTratta(Tratta t) {
 		RegistroTratteDAO rtd = new RegistroTratteDAO();
@@ -44,33 +49,32 @@ public class Mezzo extends MezzoDAO {
 		rtd.saveOrUpdateRegistroTratte(rt);
 	}
 
-	public List<DocumentoEmesso> getBigliettiVidimati() {
-		return biglietti;
-	}
-
-	public void setBigliettiVidimati(List<DocumentoEmesso> biglietti) {
-		this.biglietti = biglietti;
-	}
-
-	public void getNumeroBiglietti() {
-		this.biglietti.forEach(b -> System.out.println(b));
-	}
-
-	@Override
-	public String toString() {
-		return "Mezzo";
+	public void timbraBiglietto( Biglietto b,LocalDate data ){
+      RegistroBigliettiVidimatiDAO rbvd= new RegistroBigliettiVidimatiDAO();
+	  rbvd.saveOrUpdateRegistroBigliettoVidimato(new RegistroBigliettiVidimati(this, b,data));
 	}
 
 	public long getId() {
 		return id;
 	}
-
-	public List<DocumentoEmesso> getBiglietti() {
-		return biglietti;
+	
+	public void setId(long id) {
+		this.id = id;
+	}
+	
+	public String getNomeMezzo() {
+		return nomeMezzo;
+	}
+	
+	public void setNomeMezzo(String nomeMezzo) {
+		this.nomeMezzo = nomeMezzo;
 	}
 
-	public void setBiglietti(List<DocumentoEmesso> biglietti) {
-		this.biglietti = biglietti;
+	@Override
+	public String toString() {
+		return "Mezzo [id=" + id + ", nomeMezzo=" + nomeMezzo + "]";
 	}
+	
 
+	
 }

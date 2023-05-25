@@ -2,6 +2,7 @@ package model;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +22,7 @@ public class DocumentoEmesso {
     @SequenceGenerator(name = "seq_documenti_emessi", sequenceName = "seq_documenti_emessi", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_documenti_emessi")
     private long id;
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private  PuntoEmissione puntoEmissione;
     @Column(name = "data_emissione", nullable = false)
     private  LocalDate dataEmissione;

@@ -1,5 +1,7 @@
 package dao;
 
+import java.time.LocalDate;
+
 import model.Biglietto;
 import model.Mezzo;
 
@@ -13,5 +15,7 @@ public interface IMezzoDAO {
 
 	public void deleteMezzo(long id);
 
-	public void timbraBiglietto(Biglietto b);
+	public void getNumeriBigliettiVidimatiSuUnMezzo(long id);
+	public void getNumeriBigliettiVidimatiTraDueDate(LocalDate inizio, LocalDate fine);
+
 }

@@ -27,7 +27,7 @@ public abstract class PuntoEmissione extends PuntoEmissioneDAO{
     @SequenceGenerator(name = "seq_punti_emissione", sequenceName = "seq_punti_emissione", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_punti_emissione")
     private long id_punto_emissione;
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String indirizzo;
 
     public String getIndirizzo() {
