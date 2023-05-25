@@ -81,6 +81,7 @@ public class MainProject {
 
 		m1.percorriTratta(t1);
 		
+		
 		//td.showAllTratta();
 		//td.deleteTratta(2);
 		td.showAllTratta();
