@@ -36,6 +36,7 @@ public class RegistroTratte {
         String formattedNumber = decimalFormat.format(this.tratta.getTempo_medio_percorrenza() + (Math.random() * 0.20))
                 .replace(",", ".");
         this.tempo_effettivo_percorrenza = Double.parseDouble(formattedNumber);
+
     }
 
     public long getId_tratta_percorsa() {
