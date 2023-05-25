@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -63,9 +64,21 @@ public class RegistroTratteDAO implements IRegistroTratteDAO{
 	}
 
 	@Override
-	public void showAllRegistroTratte() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'showAllRegistro'");
+	public List<RegistroTratte> showAllRegistroTratte() {
+		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+		try {
+			List<RegistroTratte> rs = new ArrayList<RegistroTratte>();
+			Query q = em.createQuery("SELECT s FROM RegistroTratte s");
+			rs = q.getResultList();
+			rs.forEach(l -> System.out.println(l.getId_tratta_percorsa() + " = mezzo "+l.getMezzo().getId() +", da " + l.getTratta().getZona_partenza() +", in "+ l.getTempo_effettivo_percorrenza()+"h"));
+			return rs;
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println("ERRORE impossibile recuperare la lista dal db!" + e);
+		} finally {
+			em.close();
+		}
+		return null;
 	}
     
 }
