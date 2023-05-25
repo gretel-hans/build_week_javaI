@@ -60,22 +60,24 @@ public class MainProject {
 		RegistroDAO rd = new RegistroDAO();
 		md.salvaMezzo(m1);
 		md.salvaMezzo(m2);
-		// md.timbraBiglieto(br);
-		// Mezzo mezzo = md.trovaMezzo(1);
-		// Mezzo mezzo1 = md.trovaMezzo(2);
+	    md.timbraBiglietto(br);
+		Mezzo mezzo = md.trovaMezzo(1);
+		Mezzo mezzo1 = md.trovaMezzo(2);
+		System.out.println(mezzo);
+		System.out.println(mezzo1);
 
-		RegistroStatoMezzi rsm = new RegistroStatoMezzi(new Tram(listaBiglietti), StatoMezzo.SERVIZIO,
+		RegistroStatoMezzi rsm = new RegistroStatoMezzi(m1, StatoMezzo.SERVIZIO,
 				LocalDate.now());
-
-		RegistroStatoMezzi rsm1 = new RegistroStatoMezzi(md.trovaMezzo(1),
+		
+		RegistroStatoMezzi rsm1 = new RegistroStatoMezzi(m2,
 				StatoMezzo.MANUTENZIONE, LocalDate.of(2023, 06, 03));
-		// rd.saveRegistro(rsm);
-		// rd.saveRegistro(rsm1);
-
+		 rd.saveRegistro(rsm);
+		 rd.saveRegistro(rsm1);
+/*
 		RegistroStatoMezzi rsm2 = new RegistroStatoMezzi(new Autobus(listaBiglietti), StatoMezzo.SERVIZIO,
 				LocalDate.now());
 		// rd.saveRegistro(rsm2);
-
+*/
 		Tratta t1 = new Tratta("Piazza Verdi", "Piazza Rossi", 1.20);
 		TrattaDao td = new TrattaDao();
 		td.saveTratta(t1);
@@ -92,7 +94,7 @@ public class MainProject {
 		tsr1.setData_inizio(LocalDate.of(2023, 5, 25));
 		tsd.updateTessera(tsr1);
 
-		md.deleteMezzo(1);
+      // md.deleteMezzo(1);
 	}
 
 	static public PuntoEmissione cercaPEperId(long id) {

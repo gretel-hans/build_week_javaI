@@ -19,7 +19,7 @@ public class RegistroTratte {
     private long id_tratta_percorsa;
     @OneToOne
     private Tratta tratta;
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.MERGE)
     Mezzo mezzo;
     @Column(nullable = true)
     private double tempo_effettivo_percorrenza;

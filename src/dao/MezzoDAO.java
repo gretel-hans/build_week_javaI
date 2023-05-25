@@ -20,7 +20,7 @@ public class MezzoDAO implements IMezzoDAO {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
-			em.persist(m);
+			em.persist(em.merge(m));
 			em.getTransaction().commit();
 			System.out.println("Mezzo salvato nel DB!");
 		} catch (Exception e) {
