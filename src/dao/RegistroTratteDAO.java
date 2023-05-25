@@ -9,36 +9,20 @@ import javax.persistence.Query;
 import model.RegistroTratte;
 import utils.JpaUtil;
 
-public class RegistroTratteDAO implements IRegistroTratteDAO{
-    
-    @Override
-    public void saveRegistroTratte(RegistroTratte r) {
-        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-		try {
-			em.getTransaction().begin();
-			em.persist(r);
-			em.getTransaction().commit();
-			System.out.println("Riga del registro salvato nel DB!");
-		} catch (Exception e) {
-			em.getTransaction().rollback();
-			e.printStackTrace();
-			System.out.println("Errore su salvataggio del registro tratte!" + e);
-		}finally {
-			em.close();
-		}
-    }
+public class RegistroTratteDAO implements IRegistroTratteDAO {
 
 	@Override
-	public void updateRegistroTratte(RegistroTratte r) {
+	public void saveOrUpdateRegistroTratte(RegistroTratte r) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
-			em.merge(r);
+			em.persist(em.merge(r));
 			em.getTransaction().commit();
-			System.out.println("registro modificato nel DB!!");
+			System.out.println("Riga del Registro Tratte salvato nel DB!");
 		} catch (Exception e) {
 			em.getTransaction().rollback();
-			System.out.println("ERRORE registro NON modificato nel DB!!");
+			e.printStackTrace();
+			System.out.println("Errore su salvataggio del Registro Tratte su DB!" + e);
 		} finally {
 			em.close();
 		}
@@ -48,15 +32,15 @@ public class RegistroTratteDAO implements IRegistroTratteDAO{
 	public void deleteRegistroTratte(long id) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
-			Query q = em.createQuery("SELECT r FROM RegistroTratte r WHERE r.id_tratta_percorsa = :id_param");
-			List<RegistroTratte> rs =q.setParameter("id_param", id).getResultList();
+			Query q = em.createQuery("SELECT rt FROM RegistroTratte rt WHERE rt.id_tratta_percorsa = :id_param");
+			List<RegistroTratte> rt = q.setParameter("id_param", id).getResultList();
 			em.getTransaction().begin();
-			em.remove(rs.get(0));
+			em.remove(rt.get(0));
 			em.getTransaction().commit();
-			System.out.println("Riga RegistroTratta con id: "+id+ " eliminato dal DB!!");
+			System.out.println("Riga di Registro Tratte con id: " + id + " eliminato dal DB!!");
 		} catch (Exception e) {
 			em.getTransaction().rollback();
-			System.out.println("ERRORE! Riga RegistroTratta NON eliminata dal DB!!" + e);
+			System.out.println("ERRORE! Riga di Registro Tratte NON eliminata dal DB!!" + e);
 			e.printStackTrace();
 		} finally {
 			em.close();
@@ -64,21 +48,36 @@ public class RegistroTratteDAO implements IRegistroTratteDAO{
 	}
 
 	@Override
-	public List<RegistroTratte> showAllRegistroTratte() {
+	public RegistroTratte trovaRegistroTratta(long id) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
-			List<RegistroTratte> rs = new ArrayList<RegistroTratte>();
-			Query q = em.createQuery("SELECT s FROM RegistroTratte s");
-			rs = q.getResultList();
-			rs.forEach(l -> System.out.println(l.getId_tratta_percorsa() + " = mezzo "+l.getMezzo().getId() +", da " + l.getTratta().getZona_partenza() +", in "+ l.getTempo_effettivo_percorrenza()+"h"));
-			return rs;
+			Query q = em.createQuery("SELECT rt FROM RegistroTratte rt WHERE rt.id = :parametro_id");
+			List<RegistroTratte> rt = q.setParameter("parametro_id", id).getResultList();
+			return rt.get(0);
 		} catch (Exception e) {
-			em.getTransaction().rollback();
-			System.out.println("ERRORE impossibile recuperare la lista dal db!" + e);
+			System.out.println("Errore su lettura del Registro Tratte!" + e);
 		} finally {
 			em.close();
 		}
 		return null;
 	}
-    
+
+	@Override
+	public List<RegistroTratte> showAllRegistroTratte() {
+		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+		try {
+			List<RegistroTratte> rs = new ArrayList<RegistroTratte>();
+			Query q = em.createQuery("SELECT rt FROM RegistroTratte rt");
+			rs = q.getResultList();
+			rs.forEach(r -> System.out.println(r));
+			return rs;
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println("ERRORE! Impossibile recuperare la lista del Registo Tratte dal DB!");
+		} finally {
+			em.close();
+		}
+		return null;
+	}
+
 }

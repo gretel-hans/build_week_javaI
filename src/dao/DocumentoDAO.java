@@ -6,21 +6,21 @@ import model.Abbonamento;
 import model.Biglietto;
 import utils.JpaUtil;
 
-public class DocumentoDAO implements IDocumentoDAO{
+public class DocumentoDAO implements IDocumentoDAO {
 
 	@Override
 	public void salvaBiglietto(Biglietto b) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
-			em.persist(b);
+			em.persist(em.merge(b));
 			em.getTransaction().commit();
 			System.out.println("Biglietto salvato nel DB!");
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			e.printStackTrace();
 			System.out.println("Errore su salvataggio del Biglietto!" + e);
-		}finally {
+		} finally {
 			em.close();
 		}
 	}
@@ -86,7 +86,7 @@ public class DocumentoDAO implements IDocumentoDAO{
 			em.getTransaction().rollback();
 			e.printStackTrace();
 			System.out.println("Errore su salvataggio del Abbonamento!" + e);
-		}finally {
+		} finally {
 			em.close();
 		}
 	}

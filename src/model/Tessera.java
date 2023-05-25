@@ -18,7 +18,7 @@ public class Tessera extends TesseraDAO {
     @SequenceGenerator(name = "seq_tessere", sequenceName = "seq_tessere", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tessere")
     private long id_tessera;
-    @Column
+    @Column(nullable = false)
     private LocalDate data_inizio;
     @Column
     private LocalDate data_scadenza;
