@@ -1,5 +1,7 @@
 package model;
 
+import java.text.DecimalFormat;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,6 +25,7 @@ public class RegistroTratte {
     Mezzo mezzo;
     @Column(nullable = true)
     private double tempo_effettivo_percorrenza;
+    DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
     public RegistroTratte() {
     }
@@ -30,7 +33,10 @@ public class RegistroTratte {
     public RegistroTratte(Tratta tratta, Mezzo mezzo) {
         this.tratta = tratta;
         this.mezzo = mezzo;
-        this.tempo_effettivo_percorrenza = this.tratta.getTempo_medio_percorrenza() + Math.floor(((Math.random() * 0.20) * 100))/100;
+        String formattedNumber = decimalFormat.format(this.tratta.getTempo_medio_percorrenza() + (Math.random() * 0.20))
+                .replace(",", ".");
+        this.tempo_effettivo_percorrenza = Double.parseDouble(formattedNumber);
+
     }
 
     public long getId_tratta_percorsa() {
@@ -63,5 +69,10 @@ public class RegistroTratte {
 
     public void setTempo_effettivo_percorrenza(double tempo_effettivo_percorrenza) {
         this.tempo_effettivo_percorrenza = tempo_effettivo_percorrenza;
+    }
+
+    @Override
+    public String toString() {
+        return "RegistroTratte [id_tratta_percorsa=" + id_tratta_percorsa + ", tratta=" + tratta + ", mezzo=" + mezzo + ", tempo_effettivo_percorrenza=" + tempo_effettivo_percorrenza + "]";
     }
 }

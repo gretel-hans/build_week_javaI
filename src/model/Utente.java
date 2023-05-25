@@ -10,14 +10,16 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import dao.UtenteDAO;
+
 @Entity
 @Table(name = "utenti")
-public class Utente {
+public class Utente extends UtenteDAO {
     @Id
     @SequenceGenerator(name = "seq_utenti", sequenceName = "seq_utenti", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_utenti")
     private long id_utente;
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = { CascadeType.MERGE, CascadeType.REMOVE })
     private Tessera tessera;
     @Column
     private String nome;
@@ -73,6 +75,12 @@ public class Utente {
 
     public void setSaldo(double saldo) {
         this.saldo = saldo;
+    }
+
+    @Override
+    public String toString() {
+        return "Utente [id_utente=" + id_utente + ", tessera=" + tessera + ", nome=" + nome + ", cognome=" + cognome
+                + ", saldo=" + saldo + "]";
     }
 
 }

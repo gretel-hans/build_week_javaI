@@ -41,7 +41,7 @@ public class Mezzo extends MezzoDAO {
 	public void percorriTratta(Tratta t) {
 		RegistroTratteDAO rtd = new RegistroTratteDAO();
 		RegistroTratte rt = new RegistroTratte(t, this);
-		rtd.saveRegistroTratte(rt);
+		rtd.saveOrUpdateRegistroTratte(rt);
 	}
 
 	public List<Biglietto> getBigliettiVidimati() {
