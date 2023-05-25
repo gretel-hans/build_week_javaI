@@ -11,7 +11,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "registro_tratte")
+@Table(name = "registro_tratte_percorse")
 public class RegistroTratte {
     @Id
     @SequenceGenerator(name = "seq_tratte_percorse", sequenceName = "seq_tratte_percorse", allocationSize = 1)
@@ -19,7 +19,7 @@ public class RegistroTratte {
     private long id_tratta_percorsa;
     @OneToOne(cascade = CascadeType.MERGE)
     private Tratta tratta;
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne(cascade = CascadeType.ALL)
     Mezzo mezzo;
     @Column(nullable = true)
     private double tempo_effettivo_percorrenza;
@@ -30,8 +30,7 @@ public class RegistroTratte {
     public RegistroTratte(Tratta tratta, Mezzo mezzo) {
         this.tratta = tratta;
         this.mezzo = mezzo;
-        this.tempo_effettivo_percorrenza = this.tratta.getTempo_medio_percorrenza()
-                + Math.floor((Math.random() * 0.20) * 100) / 100;
+        this.tempo_effettivo_percorrenza = this.tratta.getTempo_medio_percorrenza() + Math.floor(((Math.random() * 0.20) * 100))/100;
     }
 
     public long getId_tratta_percorsa() {

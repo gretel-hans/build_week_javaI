@@ -27,4 +27,6 @@ public class Autobus extends Mezzo {
 		return super.toString() + "Autobus [capienza=" + capienza + "]";
 	}
 
+	
+
 }

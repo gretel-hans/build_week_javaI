@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import dao.DocumentoDAO;
 import dao.MezzoDAO;
 import dao.RegistroDAO;
+import dao.RegistroTratteDAO;
 import dao.TrattaDao;
 import enums.StatoMezzo;
 import model.Abbonamento.durata;
@@ -78,20 +79,28 @@ public class MainProject {
 		 * // rd.saveRegistro(rsm2);
 		 */
 		Tratta t1 = new Tratta("Piazza Verdi", "Piazza Rossi", 1.20);
-		Tratta t2 = new Tratta("Piazza Marconi", "Piazza Rosalbo", 1.20);
-		Tratta t3 = new Tratta("Piazza Martiri", "Piazza Cristo", 1.20);
+		Tratta t2 = new Tratta("Piazza Marconi", "Piazza Rosalbo", 0.40);
+		Tratta t3 = new Tratta("Piazza Martiri", "Piazza Cristo", 1.30);
 
 		TrattaDao td = new TrattaDao();
 		td.saveTratta(t1);
 		td.saveTratta(t2);
 		td.saveTratta(t3);
 
-		//m1.percorriTratta(t1);
+
+
+		m1.percorriTratta(t1);
+		m2.percorriTratta(t2);
+		RegistroTratteDAO rtd = new RegistroTratteDAO();
+		rtd.showAllRegistroTratte();
 		// t3.setAgibile(false);
 		// td.updateTratta(t3);
 		Tessera card = new Tessera(LocalDate.now());
 		p1.emettiBiglietto();
 		p1.emettiAbbonamento(new Utente(card, "Vincenzo","De Vito"), durata.SETTIMANALE);
+
+
+
 		// td.showAllTratta();
 		// td.deleteTratta(2);
 		//td.showAllTratta();
