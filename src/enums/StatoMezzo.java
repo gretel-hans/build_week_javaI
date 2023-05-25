@@ -2,7 +2,7 @@ package enums;
 
 public enum StatoMezzo {
 	
-	SERVIZIO,
+	IN_SERVIZIO,
 	MANUTENZIONE
 	
 }

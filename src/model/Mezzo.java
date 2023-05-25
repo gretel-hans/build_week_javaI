@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import dao.MezzoDAO;
@@ -42,7 +41,7 @@ public class Mezzo extends MezzoDAO {
 	public void percorriTratta(Tratta t) {
 		RegistroTratteDAO rtd = new RegistroTratteDAO();
 		RegistroTratte rt = new RegistroTratte(t, this);
-		rtd.saveRegistro(rt);
+		rtd.saveRegistroTratte(rt);
 	}
 
 	public List<Biglietto> getBigliettiVidimati() {
@@ -53,9 +52,13 @@ public class Mezzo extends MezzoDAO {
 		this.biglietti = biglietti;
 	}
 
+	public void getNumeroBiglietti() {
+		this.biglietti.forEach(b -> System.out.println(b));
+	}
+
 	@Override
 	public String toString() {
-		return "Mezzi [bigliettiVidimati=" + "]";
+		return "Mezzo";
 	}
 
 	public long getId() {

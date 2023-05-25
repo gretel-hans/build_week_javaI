@@ -1,5 +1,6 @@
 package dao;
 
+import model.Abbonamento;
 import model.Biglietto;
 
 public interface IBigliettoDAO {
@@ -8,4 +9,5 @@ public interface IBigliettoDAO {
 	public Biglietto cercaBigliettoPerId(long id);
 	public void modificaBiglietto(Biglietto b);
 	public void eliminaBiglietto(Biglietto b);
+	public void salvaAbbonamento(Abbonamento a);
 }

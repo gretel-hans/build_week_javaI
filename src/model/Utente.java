@@ -23,6 +23,8 @@ public class Utente {
     private String nome;
     @Column
     private String cognome;
+    @Column
+    private double saldo;
 
     public Utente() {
     }
@@ -63,6 +65,14 @@ public class Utente {
 
     public void setCognome(String cognome) {
         this.cognome = cognome;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
     }
 
 }

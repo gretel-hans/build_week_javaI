@@ -19,7 +19,6 @@ import model.DistributoreAutomatico;
 import model.Mezzo;
 import model.PuntoEmissione;
 import model.RegistroStatoMezzi;
-import model.RegistroTratte;
 import model.RivenditoreAutorizzato;
 import model.Tessera;
 import model.Tram;
@@ -48,8 +47,8 @@ public class MainProject {
 		bd.salvaBiglietto(b2);
 		Biglietto br = bd.cercaBigliettoPerId(1);
 		Biglietto br2 = bd.cercaBigliettoPerId(2);
-		System.out.println(br);
-		System.out.println(br2);
+		// System.out.println(br);
+		// System.out.println(br2);
 		List<Biglietto> listaBiglietti = new ArrayList<Biglietto>();
 		listaBiglietti.add(br);
 		listaBiglietti.add(br2);
@@ -60,29 +59,52 @@ public class MainProject {
 		RegistroDAO rd = new RegistroDAO();
 		md.salvaMezzo(m1);
 		md.salvaMezzo(m2);
-	    md.timbraBiglietto(br);
+		// timbraBiglieto(br);
 		Mezzo mezzo = md.trovaMezzo(1);
 		Mezzo mezzo1 = md.trovaMezzo(2);
-		System.out.println(mezzo);
-		System.out.println(mezzo1);
 
-		RegistroStatoMezzi rsm = new RegistroStatoMezzi(m1, StatoMezzo.SERVIZIO,
-				LocalDate.now());
-		
-		RegistroStatoMezzi rsm1 = new RegistroStatoMezzi(m2,
-				StatoMezzo.MANUTENZIONE, LocalDate.of(2023, 06, 03));
-		 rd.saveRegistro(rsm);
-		 rd.saveRegistro(rsm1);
-/*
-		RegistroStatoMezzi rsm2 = new RegistroStatoMezzi(new Autobus(listaBiglietti), StatoMezzo.SERVIZIO,
-				LocalDate.now());
-		// rd.saveRegistro(rsm2);
-*/
+		RegistroStatoMezzi rsm = new RegistroStatoMezzi(mezzo, StatoMezzo.IN_SERVIZIO, LocalDate.now());
+		RegistroStatoMezzi rsm1 = new RegistroStatoMezzi(mezzo, StatoMezzo.MANUTENZIONE, LocalDate.of(2023, 06, 03));
+		rd.saveRegistro(rsm);
+		rd.saveRegistro(rsm1);
+
+		RegistroStatoMezzi rsm2 = new RegistroStatoMezzi(mezzo1, StatoMezzo.IN_SERVIZIO, LocalDate.now());
+		rd.saveRegistro(rsm2);
+
+		/*
+		 * RegistroStatoMezzi rsm2 = new RegistroStatoMezzi(new Autobus(listaBiglietti),
+		 * StatoMezzo.SERVIZIO,
+		 * LocalDate.now());
+		 * // rd.saveRegistro(rsm2);
+		 */
 		Tratta t1 = new Tratta("Piazza Verdi", "Piazza Rossi", 1.20);
+		Tratta t2 = new Tratta("Piazza Marconi", "Piazza Rosalbo", 1.20);
+		Tratta t3 = new Tratta("Piazza Martiri", "Piazza Cristo", 1.20);
+
 		TrattaDao td = new TrattaDao();
 		td.saveTratta(t1);
+		td.saveTratta(t2);
+		td.saveTratta(t3);
 
 		m1.percorriTratta(t1);
+
+		// td.showAllTratta();
+		// td.deleteTratta(2);
+		td.showAllTratta();
+		// FUNZIONA TUTTO
+		// System.out.println(rd.trovaRegistroStatoMezzi(1));
+		// rd.deleteRegistro(1);
+		// p1.emettiDocumento(true, LocalDate.of(2023, 1, 1));
+		// p1.emettiDocumento(true, LocalDate.of(2023, 1, 2));
+		// p1.emettiDocumento(true, LocalDate.of(2023, 1, 3));
+		// p1.emettiDocumento(true, LocalDate.of(2023, 1,4));
+		// p1.emettiDocumento(true, LocalDate.of(2023, 1,5));
+
+		// RegistroDocEmessiDAO rded = new RegistroDocEmessiDAO();
+
+		// rded.cercaBigliettiInPerioDiTempoDaPuntoVendita(LocalDate.of(2023, 1,
+		// 1),LocalDate.of(2023, 1, 3), p1);
+		// p1.emettiDocumento(false);
 
 		Tessera ts1 = new Tessera(LocalDate.now());
 		TesseraDAO tsd = new TesseraDAO();
@@ -94,7 +116,7 @@ public class MainProject {
 		tsr1.setData_inizio(LocalDate.of(2023, 5, 25));
 		tsd.updateTessera(tsr1);
 
-      // md.deleteMezzo(1);
+		// md.deleteMezzo(1);
 	}
 
 	static public PuntoEmissione cercaPEperId(long id) {
