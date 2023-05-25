@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -42,17 +44,18 @@ public class RegistroTratteDAO implements IRegistroTratteDAO{
 	}
 
 	@Override
-	public void deleteRegistroTratte(RegistroTratte r) {
+	public void deleteRegistroTratte(long id) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
-			Query q = em.createQuery("SELECT r FROM RegistroStatoMezzi r");
+			Query q = em.createQuery("SELECT r FROM RegistroTratte r WHERE r.id_tratta_percorsa = :id_param");
+			List<RegistroTratte> rs =q.setParameter("id_param", id).getResultList();
 			em.getTransaction().begin();
 			em.remove(rs.get(0));
 			em.getTransaction().commit();
-			System.out.println("Registro eliminato nel DB!!");
+			System.out.println("Riga RegistroTratta con id: "+id+ " eliminato dal DB!!");
 		} catch (Exception e) {
 			em.getTransaction().rollback();
-			System.out.println("ERRORE! Registro NON eliminato nel DB!!" + e);
+			System.out.println("ERRORE! Riga RegistroTratta NON eliminata dal DB!!" + e);
 			e.printStackTrace();
 		} finally {
 			em.close();
