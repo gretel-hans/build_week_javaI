@@ -12,39 +12,55 @@ import utils.JpaUtil;
 public class RegistroDocEmessiDAO implements IRegistoDocEmessiDAO{
 
     @Override
-	public void salvaRDE( RegistroDocEmessi b) {
+	public void saveOrUpdateRDE( RegistroDocEmessi b) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
-			em.persist(b);
+			em.persist(em.merge(b));
 			em.getTransaction().commit();
-			System.out.println("Registro salvato nel DB!");
+			System.out.println("Riga registro documenti emessi salvato nel DB!");
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			e.printStackTrace();
-			System.out.println("Errore su salvataggio del registro!" + e);
+			System.out.println("Errore su salvataggio della riga del registro documenti emessi!" + e);
 		}finally {
 			em.close();
 		}
 	}
 
     @Override
-    public void trovaRDE(long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'trovaRDE'");
-    }
+    public RegistroDocEmessi trovaRDE(long id) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+		try {
+			em.getTransaction().begin();
+			RegistroDocEmessi c = em.find(RegistroDocEmessi.class, id);
+			em.getTransaction().commit();
+			return c;
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println("Errore nella ricerca della riga del registro documenti emessi!" + e);
+		} finally {
+			em.close();
+		}
+		return null;
+	}
 
-    @Override
-    public void updateRDE(RegistroDocEmessi m) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateRDE'");
-    }
 
-    @Override
-    public void deleteRDE(RegistroDocEmessi m) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteRDE'");
-    }
+    // @Override
+    // public void deleteRDE(RegistroDocEmessi m) {
+	// 	EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+	// 	try {
+	// 		em.getTransaction().begin();
+	// 		em.remove(m);
+	// 		em.getTransaction().commit();
+	// 		System.out.println("RegistroDocEmessi eliminato nel DB!!");
+	// 	} catch (Exception e) {
+	// 		em.getTransaction().rollback();
+	// 		System.out.println("ERRORE RegistroDocEmessi NON eliminato nel DB!!");
+	// 	} finally {
+	// 		em.close();
+	// 	}
+	// }
     @Override
     public Long cercaBigliettiInPerioDiTempoDaPuntoVendita(LocalDate inizio, LocalDate fine, PuntoEmissione pe) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();

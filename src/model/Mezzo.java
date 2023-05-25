@@ -26,14 +26,14 @@ public class Mezzo extends MezzoDAO {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@OneToMany(mappedBy = "mezzo")
-	private List<Biglietto> biglietti = new ArrayList<Biglietto>();
+	@OneToMany (mappedBy = "id")
+	private List<DocumentoEmesso> biglietti = new ArrayList<DocumentoEmesso>();
 
 	public Mezzo() {
 		super();
 	}
 
-	public Mezzo(List<Biglietto> biglietti) {
+	public Mezzo(List<DocumentoEmesso> biglietti) {
 		super();
 		this.biglietti = biglietti;
 	}
@@ -44,11 +44,11 @@ public class Mezzo extends MezzoDAO {
 		rtd.saveOrUpdateRegistroTratte(rt);
 	}
 
-	public List<Biglietto> getBigliettiVidimati() {
+	public List<DocumentoEmesso> getBigliettiVidimati() {
 		return biglietti;
 	}
 
-	public void setBigliettiVidimati(List<Biglietto> biglietti) {
+	public void setBigliettiVidimati(List<DocumentoEmesso> biglietti) {
 		this.biglietti = biglietti;
 	}
 
@@ -65,11 +65,11 @@ public class Mezzo extends MezzoDAO {
 		return id;
 	}
 
-	public List<Biglietto> getBiglietti() {
+	public List<DocumentoEmesso> getBiglietti() {
 		return biglietti;
 	}
 
-	public void setBiglietti(List<Biglietto> biglietti) {
+	public void setBiglietti(List<DocumentoEmesso> biglietti) {
 		this.biglietti = biglietti;
 	}
 

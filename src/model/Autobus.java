@@ -13,7 +13,7 @@ public class Autobus extends Mezzo {
 		super();
 	}
 
-	public Autobus( List<Biglietto> biglietti) {
+	public Autobus( List<DocumentoEmesso> biglietti) {
 		super(biglietti);
 		this.capienza = capienza;
 	}

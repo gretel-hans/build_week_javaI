@@ -13,7 +13,7 @@ public class Tram extends Mezzo{
 		super();
 	}
 
-	public Tram(List<Biglietto> biglietti) {
+	public Tram(List<DocumentoEmesso> biglietti) {
 		super(biglietti);
 		this.capienza = capienza;
 	}
