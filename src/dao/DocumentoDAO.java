@@ -6,7 +6,7 @@ import model.Abbonamento;
 import model.Biglietto;
 import utils.JpaUtil;
 
-public class BigliettoDAO implements IBigliettoDAO {
+public class DocumentoDAO implements IDocumentoDAO {
 
 	@Override
 	public void salvaBiglietto(Biglietto b) {

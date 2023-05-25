@@ -13,8 +13,9 @@ import javax.persistence.InheritanceType;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import dao.BigliettoDAO;
+import dao.DocumentoDAO;
 import dao.RegistroDocEmessiDAO;
+import model.Abbonamento.durata;
 
 @Entity
 @Table(name = "punti_emissione")
@@ -55,40 +56,23 @@ public abstract class PuntoEmissione {
 		return "PuntoEmissione [id_punto_emissione=" + id_punto_emissione + ", indirizzo=" + indirizzo + "]";
 	}
     
-    public void emettiDocumento(boolean b) {
-        if (b) {
+    public void emettiBiglietto() {
             Biglietto bg = new Biglietto(this, LocalDate.now());
-            BigliettoDAO bd = new BigliettoDAO();
+            DocumentoDAO bd = new DocumentoDAO();
 		    bd.salvaBiglietto(bg);
             RegistroDocEmessiDAO rded = new RegistroDocEmessiDAO();
             RegistroDocEmessi rde = new RegistroDocEmessi(bg);
             rded.salvaRDE(rde);
-        } else {
-            Abbonamento a = new Abbonamento(this, LocalDate.now());
-            BigliettoDAO bd = new BigliettoDAO();
-		    bd.salvaAbbonamento(a);
-            RegistroDocEmessiDAO rded = new RegistroDocEmessiDAO();
-            RegistroDocEmessi rde = new RegistroDocEmessi(a);
-            rded.salvaRDE(rde);
-        }
     }
 
-    public void emettiDocumento(boolean b, LocalDate dataEmissione) {
-        if (b) {
-            Biglietto bg = new Biglietto(this, dataEmissione);
-            BigliettoDAO bd = new BigliettoDAO();
-		    bd.salvaBiglietto(bg);
-            RegistroDocEmessiDAO rded = new RegistroDocEmessiDAO();
-            RegistroDocEmessi rde = new RegistroDocEmessi(bg);
-            rded.salvaRDE(rde);
-        } else {
-            Abbonamento a = new Abbonamento(this, dataEmissione);
-            BigliettoDAO bd = new BigliettoDAO();
+    public void emettiAbbonamento(Utente utente, durata durata) {
+            Abbonamento a = new Abbonamento(this, LocalDate.now(), utente, durata);
+            DocumentoDAO bd = new DocumentoDAO();
 		    bd.salvaAbbonamento(a);
             RegistroDocEmessiDAO rded = new RegistroDocEmessiDAO();
             RegistroDocEmessi rde = new RegistroDocEmessi(a);
             rded.salvaRDE(rde);
-        }
+        
     }
 }
 

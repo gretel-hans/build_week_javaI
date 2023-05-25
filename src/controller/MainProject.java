@@ -6,14 +6,15 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import dao.BigliettoDAO;
+import dao.DocumentoDAO;
 import dao.MezzoDAO;
 import dao.RegistroStatoMezziDAO;
 import dao.RegistroStatoMezziDAO;
 import dao.RegistroTratteDAO;
 import dao.TesseraDAO;
-import dao.TrattaDao;
+import dao.TrattaDAO;
 import enums.StatoMezzo;
+import model.Abbonamento.durata;
 import model.Autobus;
 import model.Biglietto;
 import model.DistributoreAutomatico;
@@ -45,7 +46,7 @@ public class MainProject {
 
 		Biglietto b1 = new Biglietto(p1, LocalDate.of(2023, 5, 23));
 		Biglietto b2 = new Biglietto(p2, LocalDate.of(2023, 5, 24));
-		BigliettoDAO bd = new BigliettoDAO();
+		DocumentoDAO bd = new DocumentoDAO();
 		bd.salvaBiglietto(b1);
 		bd.salvaBiglietto(b2);
 		Biglietto br = bd.cercaBigliettoPerId(1);
@@ -90,17 +91,27 @@ public class MainProject {
 		// rd.saveRegistro(rsm2);
 		/* Crud Tratte (senza delete!!) */
 		Tratta t1 = new Tratta("Piazza Verdi", "Piazza Rossi", 1.20);
-		Tratta t2 = new Tratta("Piazza Marconi", "Piazza Rosalbo", 1.20);
-		Tratta t3 = new Tratta("Piazza Martiri", "Piazza Cristo", 1.20);
+		Tratta t2 = new Tratta("Piazza Marconi", "Piazza Rosalbo", 0.40);
+		Tratta t3 = new Tratta("Piazza Martiri", "Piazza Cristo", 1.30);
 
-		TrattaDao td = new TrattaDao();
-		// td.saveOrUpdateTratta(t1);
-		// td.saveOrUpdateTratta(t2);
-		// td.saveOrUpdateTratta(t3);
-		mezzo1.percorriTratta(t1);
-		mezzo.percorriTratta(t2);
-		mezzo1.percorriTratta(t3);
+		TrattaDAO td = new TrattaDAO();
+		td.saveOrUpdateTratta(t1);
+		td.saveOrUpdateTratta(t2);
+		td.saveOrUpdateTratta(t3);
+
+		m1.percorriTratta(t1);
+
+		// td.showAllTratta();
+		// td.deleteTratta(2);
 		td.showAllTratta();
+		// FUNZIONA TUTTO
+		// System.out.println(rd.trovaRegistroStatoMezzi(1));
+		// rd.deleteRegistro(1);
+		// p1.emettiDocumento(true, LocalDate.of(2023, 1, 1));
+		// p1.emettiDocumento(true, LocalDate.of(2023, 1, 2));
+		// p1.emettiDocumento(true, LocalDate.of(2023, 1, 3));
+		// p1.emettiDocumento(true, LocalDate.of(2023, 1,4));
+		// p1.emettiDocumento(true, LocalDate.of(2023, 1,5));
 
 		/* Crud Registro Tratte */
 
@@ -110,47 +121,15 @@ public class MainProject {
 		rtd.showAllRegistroTratte();
 		rtd.deleteRegistroTratte(1);
 
-		/*
-		 * // FUNZIONA TUTTO
-		 * // System.out.println(rd.trovaRegistroStatoMezzi(1));
-		 * // rd.deleteRegistro(1);
-		 * // p1.emettiDocumento(true, LocalDate.of(2023, 1, 1));
-		 * // p1.emettiDocumento(true, LocalDate.of(2023, 1, 2));
-		 * // p1.emettiDocumento(true, LocalDate.of(2023, 1, 3));
-		 * // p1.emettiDocumento(true, LocalDate.of(2023, 1,4));
-		 * // p1.emettiDocumento(true, LocalDate.of(2023, 1,5));
-		 * 
-		 * // RegistroDocEmessiDAO rded = new RegistroDocEmessiDAO();
-		 * 
-		 * // rded.cercaBigliettiInPerioDiTempoDaPuntoVendita(LocalDate.of(2023, 1,
-		 * // 1),LocalDate.of(2023, 1, 3), p1);
-		 * // p1.emettiDocumento(false);
-		 */
-		/*
-		 * Tessera ts1 = new Tessera(LocalDate.now());
-		 * TesseraDAO tsd = new TesseraDAO();
-		 * // tsd.rinnovaTessera(ts1);
-		 * tsd.salvaTessera(ts1);
-		 * Tessera tsr1 = tsd.trovaTessera(1);
-		 * System.out.println(tsr1);
-		 * // tsd.deleteTessera(1);
-		 * tsr1.setData_inizio(LocalDate.of(2023, 5, 25));
-		 * tsd.updateTessera(tsr1);
-		 * 
-		 * // md.deleteMezzo(1);
-		 */
 		Tessera ts1 = new Tessera(LocalDate.now());
-		// ts1.salvaTessera(ts1);
-
-		/* Aggiungi, aggiorna ed elimina utente + tessera */
-		Utente u1 = new Utente(ts1, "Mario", "Rossi");
-		u1.saveOrUpdateUtente(u1);
-		Utente umod = u1.cercaUtentePerId(1);
-		umod.setCognome("Neri");
-		umod.saveOrUpdateUtente(umod);
-		// umod.eliminaUtente(umod.cercaUtentePerId(1));
-		List<Utente> listaUtenti = umod.showAllUtenti();
-		listaUtenti.forEach(u -> System.out.println(u));
+		TesseraDAO tsd = new TesseraDAO();
+		// tsd.rinnovaTessera(ts1);
+		tsd.salvaTessera(ts1);
+		Tessera tsr1 = tsd.trovaTessera(1);
+		System.out.println(tsr1);
+		// tsd.deleteTessera(1);
+		tsr1.setData_inizio(LocalDate.of(2023, 5, 25));
+		tsd.updateTessera(tsr1);
 
 	}
 

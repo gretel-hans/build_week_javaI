@@ -18,7 +18,7 @@ public class Abbonamento extends DocumentoEmesso {
     private Utente utente;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private durata durata; 
+    private durata durata;
     @Column(nullable = false)
     private LocalDate scadenza;
     

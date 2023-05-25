@@ -9,7 +9,7 @@ import javax.persistence.Query;
 import model.Tratta;
 import utils.JpaUtil;
 
-public class TrattaDao implements ITrattaDAO {
+public class TrattaDAO implements ITrattaDAO {
 
 	@Override
 	public void saveOrUpdateTratta(Tratta t) {
@@ -28,25 +28,29 @@ public class TrattaDao implements ITrattaDAO {
 		}
 	}
 
-	@Override // MERGE cancella correttamente solo se la tratta non e' stata percorsa,
-				// RIVEDERE
-	public void deleteTratta(long id) {
-		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-		try {
-			Query q = em.createQuery("SELECT r FROM Tratta r WHERE r.id = :parametro_id");
-			List<Tratta> rs = q.setParameter("parametro_id", id).getResultList();
-			em.getTransaction().begin();
-			em.remove(rs.get(0));
-			em.getTransaction().commit();
-			System.out.println("Tratta eliminata nel DB!!");
-		} catch (Exception e) {
-			em.getTransaction().rollback();
-			System.out.println("ERRORE! Tratta NON eliminata nel DB!!" + e);
-			e.printStackTrace();
-		} finally {
-			em.close();
-		}
-	}
+	// MERGE cancella correttamente solo se la tratta non e' stata percorsa,
+	// piuttosto che cancellare le tratte,
+	// le stesse vengono definite agibili = false tramite updateTratta() se
+	// inutilizzabili
+
+	// public void deleteTratta(long id) {
+	// EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+	// try {
+	// Query q = em.createQuery("SELECT r FROM Tratta r WHERE r.id =
+	// :parametro_id");
+	// List <Tratta> rs = q.setParameter("parametro_id", id).getResultList();
+	// em.getTransaction().begin();
+	// em.remove(rs.get(0));
+	// em.getTransaction().commit();
+	// System.out.println("Tratta eliminata nel DB!!");
+	// } catch (Exception e) {
+	// em.getTransaction().rollback();
+	// System.out.println("ERRORE! Tratta NON eliminata nel DB!!" + e);
+	// e.printStackTrace();
+	// } finally {
+	// em.close();
+	// }
+	// }
 
 	@Override
 	public List<Tratta> showAllTratta() {

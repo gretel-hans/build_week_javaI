@@ -21,6 +21,8 @@ public class Tratta {
     private String capolinea;
     @Column(nullable = false)
     private double tempo_medio_percorrenza;
+    @Column(nullable = false)
+    private boolean agibile;
 
     public Tratta() {
     }
@@ -29,6 +31,7 @@ public class Tratta {
         this.zona_partenza = zona_partenza;
         this.capolinea = capolinea;
         this.tempo_medio_percorrenza = tempo_medio_percorrenza;
+        this.agibile = true;
     }
 
     public long getId_tratta() {
@@ -67,5 +70,12 @@ public class Tratta {
     public String toString() {
         return "Tratta [id_tratta=" + id_tratta + ", zona_partenza=" + zona_partenza + ", capolinea=" + capolinea
                 + ", tempo_medio_percorrenza=" + getTempo_medio_percorrenza() + "]";
+
+    public boolean isAgibile() {
+        return agibile;
+    }
+
+    public void setAgibile(boolean agibile) {
+        this.agibile = agibile;
     }
 }
