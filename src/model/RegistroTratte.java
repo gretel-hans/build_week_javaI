@@ -73,7 +73,6 @@ public class RegistroTratte {
 
     @Override
     public String toString() {
-        return "RegistroTratte [id_tratta_percorsa=" + id_tratta_percorsa + ", tratta=" + tratta + ", mezzo=" + mezzo
-                + ", tempo_effettivo_percorrenza=" + tempo_effettivo_percorrenza + "]";
+        return "RegistroTratte [id_tratta_percorsa=" + id_tratta_percorsa + ", tratta=" + tratta + ", mezzo=" + mezzo + ", tempo_effettivo_percorrenza=" + tempo_effettivo_percorrenza + "]";
     }
 }
