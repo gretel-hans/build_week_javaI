@@ -44,7 +44,7 @@ public class TrattaDao implements ITrattaDAO {
 		}
 	}
 
-	//MERGE cancella correttamente solo se la tratta non e' stata percorsa, piuttosto che cancellare le tratte, 
+	//MERGE cancella correttamente solo se la tratta non e' stata percorsa, piuttosto che cancellare le tratte,
 	//le stesse vengono definite agibili = false tramite updateTratta() se inutilizzabili
 	
 	
