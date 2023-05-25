@@ -2,6 +2,7 @@ package dao;
 
 import javax.persistence.EntityManager;
 
+import model.Abbonamento;
 import model.Biglietto;
 import utils.JpaUtil;
 
@@ -73,5 +74,21 @@ public class BigliettoDAO implements IBigliettoDAO{
 		}
 	}
 
+	@Override
+	public void salvaAbbonamento(Abbonamento a) {
+		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+		try {
+			em.getTransaction().begin();
+			em.persist(a);
+			em.getTransaction().commit();
+			System.out.println("Abbonamento salvato nel DB!");
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			e.printStackTrace();
+			System.out.println("Errore su salvataggio del Abbonamento!" + e);
+		}finally {
+			em.close();
+		}
+	}
 
 }

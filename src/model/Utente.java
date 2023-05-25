@@ -23,8 +23,12 @@ public class Utente {
     private String nome;
     @Column
     private String cognome;
-    
-    public Utente() {}
+    @Column
+    private double saldo;
+
+    public Utente() {
+    }
+
     public Utente(Tessera tessera, String nome, String cognome) {
         this.tessera = tessera;
         this.nome = nome;
@@ -34,26 +38,41 @@ public class Utente {
     public long getId_utente() {
         return id_utente;
     }
+
     public void setId_utente(long id_utente) {
         this.id_utente = id_utente;
     }
+
     public Tessera getTessera() {
         return tessera;
     }
+
     public void setTessera(Tessera tessera) {
         this.tessera = tessera;
     }
+
     public String getNome() {
         return nome;
     }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
+
     public String getCognome() {
         return cognome;
     }
+
     public void setCognome(String cognome) {
         this.cognome = cognome;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
     }
 
 }

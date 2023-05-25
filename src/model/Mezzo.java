@@ -2,25 +2,29 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import dao.MezzoDAO;
+import dao.RegistroTratteDAO;
 
 @Entity
+@DiscriminatorColumn(name = "tipo_mezzo")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "mezzi")
-public class Mezzo extends MezzoDAO{
-	
+public class Mezzo extends MezzoDAO {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	 private long id;
-
-	private Integer capienza;
-	
+	private long id;
 
 	@OneToMany(mappedBy = "mezzo")
 	private List<Biglietto> biglietti = new ArrayList<Biglietto>();
@@ -28,36 +32,45 @@ public class Mezzo extends MezzoDAO{
 	public Mezzo() {
 		super();
 	}
-	
 
-	public Mezzo(Integer capienza, List<Biglietto> bigliettiVidimati) {
+	public Mezzo(List<Biglietto> biglietti) {
 		super();
-		this.capienza = capienza;
-		this.biglietti = bigliettiVidimati;
+		this.biglietti = biglietti;
 	}
 
-	public Integer getCapienza() {
-		return capienza;
+	public void percorriTratta(Tratta t) {
+		RegistroTratteDAO rtd = new RegistroTratteDAO();
+		RegistroTratte rt = new RegistroTratte(t, this);
+		rtd.saveRegistroTratte(rt);
 	}
-
-	public void setCapienza(Integer capienza) {
-		this.capienza = capienza;
-	}
-
 
 	public List<Biglietto> getBigliettiVidimati() {
 		return biglietti;
 	}
 
-	public void setBigliettiVidimati(List<Biglietto> bigliettiVidimati) {
-		this.biglietti = bigliettiVidimati;
+	public void setBigliettiVidimati(List<Biglietto> biglietti) {
+		this.biglietti = biglietti;
 	}
 
+	public void getNumeroBiglietti() {
+		this.biglietti.forEach(b -> System.out.println(b));
+	}
 
 	@Override
 	public String toString() {
-		return "Mezzi [capienza=" + capienza + ", bigliettiVidimati=" + biglietti + "]";
+		return "Mezzo";
 	}
-	
-	
+
+	public long getId() {
+		return id;
+	}
+
+	public List<Biglietto> getBiglietti() {
+		return biglietti;
+	}
+
+	public void setBiglietti(List<Biglietto> biglietti) {
+		this.biglietti = biglietti;
+	}
+
 }

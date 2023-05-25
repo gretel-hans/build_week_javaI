@@ -9,26 +9,25 @@ import model.Biglietto;
 import model.Mezzo;
 import utils.JpaUtil;
 
-public class MezzoDAO implements IMezzoDAO{
+public class MezzoDAO implements IMezzoDAO {
 
-	//static Logger log = LoggerFactory.getLogger(MezzoDAO.class);
-	
-	
+	// static Logger log = LoggerFactory.getLogger(MezzoDAO.class);
+
 	@Override
 	public void salvaMezzo(Mezzo m) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
-			em.persist(m);
+			em.persist(em.merge(m));
 			em.getTransaction().commit();
 			System.out.println("Mezzo salvato nel DB!");
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			System.out.println("Errore su salvataggio del Mezzo!" + e);
-		}finally {
+		} finally {
 			em.close();
 		}
-		
+
 	}
 
 	@Override
@@ -36,16 +35,16 @@ public class MezzoDAO implements IMezzoDAO{
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
-			Mezzo m=em.find(Mezzo.class, id);
+			Mezzo m = em.find(Mezzo.class, id);
 			em.getTransaction().commit();
 			return m;
 		} catch (Exception e) {
 			System.out.println("Errore su lettura del Mezzo!" + e);
-		}finally {
+		} finally {
 			em.close();
 		}
 		return null;
-		
+
 	}
 
 	@Override
@@ -65,23 +64,25 @@ public class MezzoDAO implements IMezzoDAO{
 	}
 
 	@Override
-	public void deleteMezzo(Mezzo m) {
+	public void deleteMezzo(long id) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
+			Mezzo m = em.find(Mezzo.class, id);
 			em.remove(m);
 			em.getTransaction().commit();
-			System.out.println("Mezzo eliminato nel DB!!");
+			System.out.println("Elememento " + m + " eliminato dal DB!!");
 		} catch (Exception e) {
 			em.getTransaction().rollback();
-			System.out.println("ERRORE mezzo NON eliminato nel DB!!");
+			System.out.println("Errore nella cancellazione!!");
+			e.printStackTrace();
 		} finally {
 			em.close();
 		}
 	}
 
 	@Override
-	 public void timbraBiglietto(Biglietto b) {
+	public void timbraBiglietto(Biglietto b) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();

@@ -1,6 +1,5 @@
 package model;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
@@ -32,12 +31,12 @@ public class Abbonamento extends DocumentoEmesso {
         this.utente = utente;
         this.durata = durata;
         if (this.durata == durata.SETTIMANALE) {
-        	this.scadenza = super.getDataEmissione().plusDays(7); 
+        	this.scadenza = super.getDataEmissione().plusDays(7);
         } else {
         	this.scadenza = super.getDataEmissione().plusDays(31);
         }
     }
-   
+
     public Abbonamento(PuntoEmissione puntoEmissione, LocalDate dataEmissione) {
         super(puntoEmissione, dataEmissione);
     }

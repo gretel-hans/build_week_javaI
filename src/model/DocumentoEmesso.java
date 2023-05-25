@@ -1,9 +1,7 @@
 package model;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,11 +21,11 @@ public class DocumentoEmesso {
     @SequenceGenerator(name = "seq_documenti_emessi", sequenceName = "seq_documenti_emessi", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_documenti_emessi")
     private long id;
-    @OneToOne     
+    @OneToOne
     private  PuntoEmissione puntoEmissione;
-    @Column(name = "data_emissione", nullable = false)                 
+    @Column(name = "data_emissione", nullable = false)
     private  LocalDate dataEmissione;
-
+    
     public DocumentoEmesso() {}
     public DocumentoEmesso(PuntoEmissione puntoEmissione, LocalDate dataEmissione) {
         this.puntoEmissione = puntoEmissione;
@@ -52,8 +50,7 @@ public class DocumentoEmesso {
 	}
 	@Override
 	public String toString() {
-		return "DocumentoEmesso [id=" + id + ", puntoEmissione=" + puntoEmissione + ", dataEmissione=" + dataEmissione
-				+ "]";
+		return "DocumentoEmesso [id=" + id + ", puntoEmissione=" + puntoEmissione + ", dataEmissione=" + dataEmissione + "]";
 	}
 
     
