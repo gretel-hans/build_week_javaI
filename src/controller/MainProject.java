@@ -6,13 +6,12 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import dao.BigliettoDAO;
+import dao.DocumentoDAO;
 import dao.MezzoDAO;
 import dao.RegistroDAO;
-import dao.RegistroTratteDAO;
-import dao.TesseraDAO;
 import dao.TrattaDao;
 import enums.StatoMezzo;
+import model.Abbonamento.durata;
 import model.Autobus;
 import model.Biglietto;
 import model.DistributoreAutomatico;
@@ -23,6 +22,7 @@ import model.RivenditoreAutorizzato;
 import model.Tessera;
 import model.Tram;
 import model.Tratta;
+import model.Utente;
 import utils.JpaUtil;
 
 public class MainProject {
@@ -42,7 +42,7 @@ public class MainProject {
 
 		Biglietto b1 = new Biglietto(p1, LocalDate.of(2023, 5, 23));
 		Biglietto b2 = new Biglietto(p2, LocalDate.of(2023, 5, 24));
-		BigliettoDAO bd = new BigliettoDAO();
+		DocumentoDAO bd = new DocumentoDAO();
 		bd.salvaBiglietto(b1);
 		bd.salvaBiglietto(b2);
 		Biglietto br = bd.cercaBigliettoPerId(1);
@@ -86,11 +86,15 @@ public class MainProject {
 		td.saveTratta(t2);
 		td.saveTratta(t3);
 
-		m1.percorriTratta(t1);
-
+		//m1.percorriTratta(t1);
+		// t3.setAgibile(false);
+		// td.updateTratta(t3);
+		Tessera card = new Tessera(LocalDate.now());
+		p1.emettiBiglietto();
+		p1.emettiAbbonamento(new Utente(card, "Vincenzo","De Vito"), durata.SETTIMANALE);
 		// td.showAllTratta();
 		// td.deleteTratta(2);
-		td.showAllTratta();
+		//td.showAllTratta();
 		// FUNZIONA TUTTO
 		// System.out.println(rd.trovaRegistroStatoMezzi(1));
 		// rd.deleteRegistro(1);
@@ -106,15 +110,15 @@ public class MainProject {
 		// 1),LocalDate.of(2023, 1, 3), p1);
 		// p1.emettiDocumento(false);
 
-		Tessera ts1 = new Tessera(LocalDate.now());
-		TesseraDAO tsd = new TesseraDAO();
-		// tsd.rinnovaTessera(ts1);
-		tsd.salvaTessera(ts1);
-		Tessera tsr1 = tsd.trovaTessera(1);
-		System.out.println(tsr1);
-		// tsd.deleteTessera(1);
-		tsr1.setData_inizio(LocalDate.of(2023, 5, 25));
-		tsd.updateTessera(tsr1);
+		// Tessera ts1 = new Tessera(LocalDate.now());
+		// TesseraDAO tsd = new TesseraDAO();
+		// // tsd.rinnovaTessera(ts1);
+		// tsd.salvaTessera(ts1);
+		// Tessera tsr1 = tsd.trovaTessera(1);
+		// System.out.println(tsr1);
+		// // tsd.deleteTessera(1);
+		// tsr1.setData_inizio(LocalDate.of(2023, 5, 25));
+		// tsd.updateTessera(tsr1);
 
 		// md.deleteMezzo(1);
 	}

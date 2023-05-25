@@ -3,7 +3,7 @@ package dao;
 import model.Abbonamento;
 import model.Biglietto;
 
-public interface IBigliettoDAO {
+public interface IDocumentoDAO {
 	
 	public void salvaBiglietto(Biglietto b);
 	public Biglietto cercaBigliettoPerId(long id);
