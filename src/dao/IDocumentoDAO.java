@@ -5,9 +5,8 @@ import model.Biglietto;
 
 public interface IDocumentoDAO {
 	
-	public void salvaBiglietto(Biglietto b);
+	public void saveOrUpdateBiglietto(Biglietto b);
 	public Biglietto cercaBigliettoPerId(long id);
-	public void modificaBiglietto(Biglietto b);
 	public void eliminaBiglietto(Biglietto b);
-	public void salvaAbbonamento(Abbonamento a);
+	public void saveOrUpdateAbbonamento(Abbonamento a);
 }

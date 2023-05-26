@@ -77,7 +77,7 @@ public class UtenteDAO implements IUtenteDAO {
 			em.getTransaction().begin();
 			em.remove(em.merge(u));
 			em.getTransaction().commit();
-			System.out.println("Utente eliminato nel DB!!");
+			System.out.println("Utente: "+ u.getNome()+" " + u.getCognome() + " eliminato nel DB!!");
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			System.out.println("ERRORE! Utente NON eliminato nel DB!!" + e);
@@ -88,19 +88,18 @@ public class UtenteDAO implements IUtenteDAO {
 	}
 
 	@Override
-	public List<Utente> showAllUtenti() {
+	public void showAllUtenti() {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			List<Utente> rs = new ArrayList<Utente>();
 			Query q = em.createQuery("SELECT u FROM Utente u");
 			rs = q.getResultList();
-			return rs;
+			rs.forEach(u->System.out.println(u));
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			System.out.println("ERRORE impossibile recuperare la lista degli Utenti dal DB!");
 		} finally {
 			em.close();
 		}
-		return null;
 	}
 }

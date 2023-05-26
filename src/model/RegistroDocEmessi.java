@@ -2,6 +2,7 @@ package model;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +17,7 @@ public class RegistroDocEmessi {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @OneToOne
+    @OneToOne (cascade ={CascadeType.PERSIST, CascadeType.MERGE})
     private DocumentoEmesso doc_emesso;
     @Column
     private String punto_emissione;

@@ -49,7 +49,7 @@ public class Mezzo extends MezzoDAO {
 		rtd.saveOrUpdateRegistroTratte(rt);
 	}
 
-	public void timbraBiglietto( Biglietto b,LocalDate data ){
+	public void timbraDocumentoEmesso( DocumentoEmesso b,LocalDate data ){
       RegistroBigliettiVidimatiDAO rbvd= new RegistroBigliettiVidimatiDAO();
 	  rbvd.saveOrUpdateRegistroBigliettoVidimato(new RegistroBigliettiVidimati(this, b,data));
 	}

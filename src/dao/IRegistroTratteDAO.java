@@ -9,7 +9,7 @@ public interface IRegistroTratteDAO {
 
     public void deleteRegistroTratte(long id);
 
-    public List<RegistroTratte> showAllRegistroTratte();
+    public void showAllRegistroTratte();
 
     public RegistroTratte trovaRegistroTratta(long id);
 }

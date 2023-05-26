@@ -46,21 +46,6 @@ public class RegistroDocEmessiDAO implements IRegistoDocEmessiDAO{
 	}
 
 
-    // @Override
-    // public void deleteRDE(RegistroDocEmessi m) {
-	// 	EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-	// 	try {
-	// 		em.getTransaction().begin();
-	// 		em.remove(m);
-	// 		em.getTransaction().commit();
-	// 		System.out.println("RegistroDocEmessi eliminato nel DB!!");
-	// 	} catch (Exception e) {
-	// 		em.getTransaction().rollback();
-	// 		System.out.println("ERRORE RegistroDocEmessi NON eliminato nel DB!!");
-	// 	} finally {
-	// 		em.close();
-	// 	}
-	// }
     @Override
     public Long cercaBigliettiInPerioDiTempoDaPuntoVendita(LocalDate inizio, LocalDate fine, PuntoEmissione pe) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();

@@ -9,7 +9,7 @@ public interface IRegistroStatoMezziDAO {
 
     public void deleteRegistroStato(long id);
 
-    public List<RegistroStatoMezzi> showAllRegistroStato();
+    public void showAllRegistroStato();
 
     public RegistroStatoMezzi trovaRegistroStatoMezzi(long id);
 }

@@ -63,21 +63,19 @@ public class RegistroTratteDAO implements IRegistroTratteDAO {
 	}
 
 	@Override
-	public List<RegistroTratte> showAllRegistroTratte() {
+	public void showAllRegistroTratte() {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			List<RegistroTratte> rs = new ArrayList<RegistroTratte>();
 			Query q = em.createQuery("SELECT rt FROM RegistroTratte rt");
 			rs = q.getResultList();
 			rs.forEach(r -> System.out.println(r));
-			return rs;
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			System.out.println("ERRORE! Impossibile recuperare la lista del Registo Tratte dal DB!");
 		} finally {
 			em.close();
 		}
-		return null;
 	}
 
 }

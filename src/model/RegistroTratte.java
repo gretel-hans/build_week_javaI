@@ -19,18 +19,18 @@ public class RegistroTratte {
     @SequenceGenerator(name = "seq_tratte_percorse", sequenceName = "seq_tratte_percorse", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tratte_percorse")
     private long id_tratta_percorsa;
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne(cascade ={CascadeType.PERSIST, CascadeType.MERGE})
     private Tratta tratta;
     @OneToOne(cascade = CascadeType.ALL)
     Mezzo mezzo;
     @Column(nullable = true)
     private double tempo_effettivo_percorrenza;
-    DecimalFormat decimalFormat = new DecimalFormat("#.##");
-
+    
     public RegistroTratte() {
     }
-
+    
     public RegistroTratte(Tratta tratta, Mezzo mezzo) {
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
         this.tratta = tratta;
         this.mezzo = mezzo;
         String formattedNumber = decimalFormat.format(this.tratta.getTempo_medio_percorrenza() + (Math.random() * 0.20))

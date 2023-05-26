@@ -37,7 +37,7 @@ public class RegistroStatoMezziDAO implements IRegistroStatoMezziDAO {
 			em.getTransaction().begin();
 			em.remove(rs.get(0));
 			em.getTransaction().commit();
-			System.out.println("Riga del registro stato mezzi eliminato nel DB!!");
+			System.out.println("Riga del registro stato mezzi con id: "+id +" eliminato nel DB!!");
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			System.out.println("ERRORE!Riga del registro stato mezzi NON eliminato dal DB!!" + e);
@@ -48,20 +48,19 @@ public class RegistroStatoMezziDAO implements IRegistroStatoMezziDAO {
 	}
 
 	@Override
-	public List<RegistroStatoMezzi> showAllRegistroStato() {
+	public void showAllRegistroStato() {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			List<RegistroStatoMezzi> rs = new ArrayList<RegistroStatoMezzi>();
 			Query q = em.createQuery("SELECT s FROM RegistroStatoMezzi s");
 			rs = q.getResultList();
-			return rs;
+			rs.forEach(r->System.out.println(r));
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			System.out.println("ERRORE impossibile recuperare la lista del Registo Stato Mezzi dal db!");
 		} finally {
 			em.close();
 		}
-		return null;
 	}
 
 	@Override

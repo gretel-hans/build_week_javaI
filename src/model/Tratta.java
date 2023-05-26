@@ -8,9 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import dao.TrattaDAO;
+
 @Entity
 @Table(name = "tratte")
-public class Tratta {
+public class Tratta extends TrattaDAO{
     @Id
     @SequenceGenerator(name = "seq_tratte", sequenceName = "seq_tratte", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tratte")

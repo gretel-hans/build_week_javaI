@@ -57,29 +57,31 @@ public abstract class PuntoEmissione extends PuntoEmissioneDAO{
 		return "PuntoEmissione [id_punto_emissione=" + id_punto_emissione + ", indirizzo=" + indirizzo + "]";
 	}
     
-    public void emettiBiglietto() {
+    public Biglietto emettiBiglietto() {
             Biglietto bg = new Biglietto(this, LocalDate.now());
             DocumentoDAO bd = new DocumentoDAO();
-		    bd.salvaBiglietto(bg);
+		    bd.saveOrUpdateBiglietto(bg);
             RegistroDocEmessiDAO rded = new RegistroDocEmessiDAO();
             RegistroDocEmessi rde = new RegistroDocEmessi(bg);
             rded.saveOrUpdateRDE(rde);
+            return bg;
     }
 
-    public void emettiAbbonamento(Utente utente, durata durata) {
+    public Abbonamento emettiAbbonamento(Utente utente, durata durata) {
             Abbonamento a = new Abbonamento(this, LocalDate.now(), utente, durata);
             DocumentoDAO bd = new DocumentoDAO();
-		    bd.salvaAbbonamento(a);
+		    bd.saveOrUpdateAbbonamento(a);
             RegistroDocEmessiDAO rded = new RegistroDocEmessiDAO();
             RegistroDocEmessi rde = new RegistroDocEmessi(a);
             rded.saveOrUpdateRDE(rde);
+            return a;
         
     }
 
     public void emettiBiglietto(LocalDate data) {
         Biglietto bg = new Biglietto(this, data);
         DocumentoDAO bd = new DocumentoDAO();
-        bd.salvaBiglietto(bg);
+        bd.saveOrUpdateBiglietto(bg);
         RegistroDocEmessiDAO rded = new RegistroDocEmessiDAO();
         RegistroDocEmessi rde = new RegistroDocEmessi(bg);
         rded.saveOrUpdateRDE(rde);

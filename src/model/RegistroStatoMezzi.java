@@ -23,7 +23,7 @@ public class RegistroStatoMezzi {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade ={CascadeType.PERSIST, CascadeType.MERGE})
     private Mezzo mezzo;
 
     @Column(name = "stato_mezzo")

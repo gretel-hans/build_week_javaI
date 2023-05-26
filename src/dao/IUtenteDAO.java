@@ -15,6 +15,6 @@ public interface IUtenteDAO {
 
 	public void checkUtentePerId(long id, LocalDate dataOggi);
 
-	public List<Utente> showAllUtenti();
+	public void showAllUtenti();
 
 }

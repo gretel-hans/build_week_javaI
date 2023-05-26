@@ -9,7 +9,7 @@ import utils.JpaUtil;
 public class DocumentoDAO implements IDocumentoDAO {
 
 	@Override
-	public void salvaBiglietto(Biglietto b) {
+	public void saveOrUpdateBiglietto(Biglietto b) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
@@ -42,21 +42,6 @@ public class DocumentoDAO implements IDocumentoDAO {
 		return null;
 	}
 
-	@Override
-	public void modificaBiglietto(Biglietto b) {
-		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-		try {
-			em.getTransaction().begin();
-			em.merge(b);
-			em.getTransaction().commit();
-			System.out.println("Biglietto modificato nel DB!!");
-		} catch (Exception e) {
-			em.getTransaction().rollback();
-			System.out.println("ERRORE biglietto NON modificato nel DB!!");
-		} finally {
-			em.close();
-		}
-	}
 
 	@Override
 	public void eliminaBiglietto(Biglietto b) {
@@ -75,11 +60,11 @@ public class DocumentoDAO implements IDocumentoDAO {
 	}
 
 	@Override
-	public void salvaAbbonamento(Abbonamento a) {
+	public void saveOrUpdateAbbonamento(Abbonamento a) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
-			em.persist(a);
+			em.persist(em.merge(a));
 			em.getTransaction().commit();
 			System.out.println("Abbonamento salvato nel DB!");
 		} catch (Exception e) {

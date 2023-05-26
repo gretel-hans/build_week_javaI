@@ -1,7 +1,6 @@
 package dao;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -9,7 +8,6 @@ import javax.persistence.Query;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 
-import model.Biglietto;
 import model.Mezzo;
 import utils.JpaUtil;
 
@@ -18,7 +16,7 @@ public class MezzoDAO implements IMezzoDAO {
 	// static Logger log = LoggerFactory.getLogger(MezzoDAO.class);
 
 	@Override
-	public void salvaMezzo(Mezzo m) {
+	public void saveOrUpdateMezzo(Mezzo m) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();
@@ -52,46 +50,12 @@ public class MezzoDAO implements IMezzoDAO {
 	}
 
 	@Override
-	public void updateMezzo(Mezzo m) {
-		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-		try {
-			em.getTransaction().begin();
-			em.merge(m);
-			em.getTransaction().commit();
-			System.out.println("Mezzo modificato nel DB!!");
-		} catch (Exception e) {
-			em.getTransaction().rollback();
-			System.out.println("ERRORE mezzo NON modificato nel DB!!");
-		} finally {
-			em.close();
-		}
-	}
-
-	@Override
-	public void deleteMezzo(long id) {
-		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-		try {
-			em.getTransaction().begin();
-			Mezzo m = em.find(Mezzo.class, id);
-			em.remove(m);
-			em.getTransaction().commit();
-			System.out.println("Elememento " + m + " eliminato dal DB!!");
-		} catch (Exception e) {
-			em.getTransaction().rollback();
-			System.out.println("Errore nella cancellazione!!");
-			e.printStackTrace();
-		} finally {
-			em.close();
-		}
-	}
-
-	@Override
 	public void getNumeriBigliettiVidimatiSuUnMezzo(long id) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			Query q=em.createQuery("SELECT COUNT(r) FROM RegistroBigliettiVidimati r WHERE r.mezzo.id = :parametro_id");
 			long conteggio= (long)q.setParameter("parametro_id", id).getSingleResult();
-			System.out.println("Il mezzo con id:"+id +" ha vidimato "+conteggio +" biglietti");
+			System.out.println("Il mezzo con id: "+id +" ha vidimato "+conteggio +" biglietti");
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			System.out.println("Errore nel conteggio dei biglietti vidimati dal mezzo con id: !!"+id+e);

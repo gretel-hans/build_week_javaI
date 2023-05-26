@@ -19,7 +19,7 @@ public class Utente extends UtenteDAO {
     @SequenceGenerator(name = "seq_utenti", sequenceName = "seq_utenti", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_utenti")
     private long id_utente;
-    @OneToOne(cascade = { CascadeType.MERGE, CascadeType.REMOVE })
+    @OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     private Tessera tessera;
     @Column
     private String nome;

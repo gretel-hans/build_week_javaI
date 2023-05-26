@@ -24,7 +24,7 @@ public class PuntoEmissioneDAO implements IPuntoEmissioneDAO{
 		return null;
 	}
 
-	public void salvaPuntoVendita(PuntoEmissione pe) {
+	public void saveOrUpdatePuntoVendita(PuntoEmissione pe) {
 		EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 		try {
 			em.getTransaction().begin();

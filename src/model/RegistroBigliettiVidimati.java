@@ -14,19 +14,21 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.ManyToAny;
 
+import dao.RegistroBigliettiVidimatiDAO;
+
 @Entity
 @Table(name="registro_biglietti_vidimati")
-public class RegistroBigliettiVidimati {
+public class RegistroBigliettiVidimati extends RegistroBigliettiVidimatiDAO {
 
     @Id
     @GeneratedValue
     private long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     private Mezzo mezzo;
 
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private Biglietto biglietto;
+    private DocumentoEmesso documentoEmesso;
 
     @Column(name="data_vidimazione")
     private LocalDate dataVidimazione;
@@ -34,9 +36,9 @@ public class RegistroBigliettiVidimati {
     public RegistroBigliettiVidimati() {
     }
 
-    public RegistroBigliettiVidimati(Mezzo mezzo, Biglietto biglietto, LocalDate data) {
+    public RegistroBigliettiVidimati(Mezzo mezzo, DocumentoEmesso documentoEmesso, LocalDate data) {
         this.mezzo = mezzo;
-        this.biglietto = biglietto;
+        this.documentoEmesso = documentoEmesso;
         this.dataVidimazione = data;
     }
 
@@ -52,18 +54,33 @@ public class RegistroBigliettiVidimati {
         this.mezzo = mezzo;
     }
 
-    public Biglietto getBiglietto() {
-        return biglietto;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void setBiglietto(Biglietto biglietto) {
-        this.biglietto = biglietto;
+    public DocumentoEmesso getDocumentoEmesso() {
+        return documentoEmesso;
+    }
+
+    public void setDocumentoEmesso(DocumentoEmesso documentoEmesso) {
+        this.documentoEmesso = documentoEmesso;
+    }
+
+    public LocalDate getDataVidimazione() {
+        return dataVidimazione;
+    }
+
+    public void setDataVidimazione(LocalDate dataVidimazione) {
+        this.dataVidimazione = dataVidimazione;
     }
 
     @Override
     public String toString() {
-        return "RegistroBigliettiVidimati [id=" + id + ", mezzo=" + mezzo + ", biglietto=" + biglietto + "]";
+        return "RegistroBigliettiVidimati [id=" + id + ", mezzo=" + mezzo + ", documentoEmesso=" + documentoEmesso
+                + ", dataVidimazione=" + dataVidimazione + "]";
     }
+
+
     
     
 }

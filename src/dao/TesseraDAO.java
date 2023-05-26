@@ -10,7 +10,7 @@ import utils.JpaUtil;
 public class TesseraDAO implements ITesseraDAO {
 
     @Override
-    public void salvaTessera(Tessera t) {
+    public void saveOrUpdateTessera(Tessera t) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             em.getTransaction().begin();
@@ -42,41 +42,6 @@ public class TesseraDAO implements ITesseraDAO {
             em.close();
         }
         return null;
-    }
-
-    @Override
-    public void deleteTessera(long id) {
-        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-        try {
-            em.getTransaction().begin();
-            Tessera t = em.find(Tessera.class, id);
-            em.remove(t);
-            em.getTransaction().commit();
-            System.out.println("Elememento " + t + " eliminato dal DB!!");
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            System.out.println("Errore nella cancellazione!!");
-            e.printStackTrace();
-        } finally {
-            em.close();
-        }
-    }
-
-    @Override
-    public void updateTessera(Tessera t) {
-        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.merge(t);
-            em.getTransaction().commit();
-            System.out.println("Aggiornamento " + t + "salvato nel DB!!");
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            System.out.println("Errore nella modifica del " + t + " nel DB!!");
-            e.printStackTrace();
-        } finally {
-            em.close();
-        }
     }
 
     public void rinnovaTessera(Tessera t) {

@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "abbonamenti")
 public class Abbonamento extends DocumentoEmesso {
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Utente utente;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

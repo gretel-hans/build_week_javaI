@@ -18,39 +18,16 @@ public class TrattaDAO implements ITrattaDAO {
 			em.getTransaction().begin();
 			em.persist(em.merge(t));
 			em.getTransaction().commit();
-			System.out.println("Riga del registro salvato nel DB!");
+			System.out.println("Tratta salvata nel DB!");
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			e.printStackTrace();
-			System.out.println("Errore su salvataggio del registro tratte!" + e);
+			System.out.println("Errore su salvataggio della tratta!" + e);
 		} finally {
 			em.close();
 		}
 	}
 
-	// MERGE cancella correttamente solo se la tratta non e' stata percorsa,
-	// piuttosto che cancellare le tratte,
-	// le stesse vengono definite agibili = false tramite updateTratta() se
-	// inutilizzabili
-
-	// public void deleteTratta(long id) {
-	// EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-	// try {
-	// Query q = em.createQuery("SELECT r FROM Tratta r WHERE r.id =
-	// :parametro_id");
-	// List <Tratta> rs = q.setParameter("parametro_id", id).getResultList();
-	// em.getTransaction().begin();
-	// em.remove(rs.get(0));
-	// em.getTransaction().commit();
-	// System.out.println("Tratta eliminata nel DB!!");
-	// } catch (Exception e) {
-	// em.getTransaction().rollback();
-	// System.out.println("ERRORE! Tratta NON eliminata nel DB!!" + e);
-	// e.printStackTrace();
-	// } finally {
-	// em.close();
-	// }
-	// }
 
 	@Override
 	public List<Tratta> showAllTratta() {
@@ -59,12 +36,11 @@ public class TrattaDAO implements ITrattaDAO {
 			List<Tratta> rs = new ArrayList<Tratta>();
 			Query q = em.createQuery("SELECT s FROM Tratta s");
 			rs = q.getResultList();
-			rs.forEach(l -> System.out
-					.println(l));
+			rs.forEach(l -> System.out.println(l));
 			return rs;
 		} catch (Exception e) {
 			em.getTransaction().rollback();
-			System.out.println("ERRORE impossibile recuperare la lista dal db!" + e);
+			System.out.println("ERRORE impossibile recuperare la lista delle tratte dal db!" + e);
 			e.printStackTrace();
 		} finally {
 			em.close();
@@ -80,7 +56,7 @@ public class TrattaDAO implements ITrattaDAO {
 			List<Tratta> rt = q.setParameter("parametro_id", id).getResultList();
 			return rt.get(0);
 		} catch (Exception e) {
-			System.out.println("Errore su lettura delle Tratte!" + e);
+			System.out.println("Errore su lettura della Tratta!" + e);
 			e.printStackTrace();
 		} finally {
 			em.close();
