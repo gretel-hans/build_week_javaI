@@ -13,7 +13,6 @@ public class Autobus extends Mezzo {
 
 	public Autobus( String nomeMezzo) {
 		super(nomeMezzo);
-		this.capienza = capienza;
 	}
 
 	public Integer getCapienza() {
