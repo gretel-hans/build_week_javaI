@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import dao.DocumentoDAO;
-import dao.MezzoDAO;
 import dao.RegistroBigliettiVidimatiDAO;
 import dao.RegistroDocEmessiDAO;
 import dao.RegistroStatoMezziDAO;
@@ -16,9 +15,7 @@ import dao.TesseraDAO;
 import dao.UtenteDAO;
 import enums.StatoMezzo;
 import model.Abbonamento.durata;
-import model.Abbonamento;
 import model.Autobus;
-import model.Biglietto;
 import model.DistributoreAutomatico;
 import model.DocumentoEmesso;
 import model.Mezzo;
@@ -121,7 +118,7 @@ public class MainProject {
 
 		RegistroDocEmessiDAO regdocED= new RegistroDocEmessiDAO();
 		//regdocED.cercaBigliettiInPerioDiTempoDaPuntoVendita(LocalDate.of(2023,05,23), LocalDate.of(2023,05,29), puntoEmi.cercaPEperId(1));
-		//System.out.println(regdocED.trovaRDE(1)); 
+		//System.out.println(regdocED.trovaRDE(1));
 		
 		//lm.get(0).getNumeriBigliettiVidimatiSuUnMezzo(1);
 		//lm.get(0).getNumeriBigliettiVidimatiTraDueDate(LocalDate.of(2023,05,26), LocalDate.of(2023,05,27));
