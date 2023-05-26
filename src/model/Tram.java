@@ -13,7 +13,6 @@ public class Tram extends Mezzo{
 
 	public Tram(String nomeMezzo) {
 		super(nomeMezzo);
-		this.capienza = capienza;
 	}
 
 	public Integer getCapienza() {
