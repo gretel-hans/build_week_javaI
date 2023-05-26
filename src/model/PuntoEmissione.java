@@ -12,8 +12,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import dao.DocumentoDAO;
 import dao.PuntoEmissioneDAO;
 import dao.RegistroDocEmessiDAO;
 import model.Abbonamento.durata;
@@ -58,9 +56,7 @@ public abstract class PuntoEmissione extends PuntoEmissioneDAO{
 	}
     
     public Biglietto emettiBiglietto() {
-            Biglietto bg = new Biglietto(this, LocalDate.now());
-            DocumentoDAO bd = new DocumentoDAO();
-		    bd.saveOrUpdateBiglietto(bg);
+            Biglietto bg = new Biglietto(this, LocalDate.now());		  
             RegistroDocEmessiDAO rded = new RegistroDocEmessiDAO();
             RegistroDocEmessi rde = new RegistroDocEmessi(bg);
             rded.saveOrUpdateRDE(rde);
@@ -69,8 +65,6 @@ public abstract class PuntoEmissione extends PuntoEmissioneDAO{
 
     public Abbonamento emettiAbbonamento(Utente utente, durata durata) {
             Abbonamento a = new Abbonamento(this, LocalDate.now(), utente, durata);
-            DocumentoDAO bd = new DocumentoDAO();
-		    bd.saveOrUpdateAbbonamento(a);
             RegistroDocEmessiDAO rded = new RegistroDocEmessiDAO();
             RegistroDocEmessi rde = new RegistroDocEmessi(a);
             rded.saveOrUpdateRDE(rde);
@@ -79,9 +73,7 @@ public abstract class PuntoEmissione extends PuntoEmissioneDAO{
     }
 
     public void emettiBiglietto(LocalDate data) {
-        Biglietto bg = new Biglietto(this, data);
-        DocumentoDAO bd = new DocumentoDAO();
-        bd.saveOrUpdateBiglietto(bg);
+        Biglietto bg = new Biglietto(this, data);       
         RegistroDocEmessiDAO rded = new RegistroDocEmessiDAO();
         RegistroDocEmessi rde = new RegistroDocEmessi(bg);
         rded.saveOrUpdateRDE(rde);

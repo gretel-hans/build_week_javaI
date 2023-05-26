@@ -17,10 +17,10 @@ public class RegistroDocEmessi {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @OneToOne (cascade ={CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne (cascade ={CascadeType.MERGE})
     private DocumentoEmesso doc_emesso;
-    @Column
-    private String punto_emissione;
+    @OneToOne(cascade = CascadeType.MERGE)
+    private PuntoEmissione punto_emissione;
     @Column
     private LocalDate data_emissione;
     // @Column
@@ -31,7 +31,7 @@ public class RegistroDocEmessi {
 
     public RegistroDocEmessi(DocumentoEmesso docEmesso) {
         this.doc_emesso = docEmesso;
-        this.punto_emissione = docEmesso.getPuntoEmissione().getIndirizzo();
+        this.punto_emissione = docEmesso.getPuntoEmissione();
         this.data_emissione = docEmesso.getDataEmissione();
     }
     
@@ -43,10 +43,10 @@ public class RegistroDocEmessi {
     public void setDocEmesso(DocumentoEmesso docEmesso) {
         this.doc_emesso = docEmesso;
     }
-    public String getPuntoEmissione() {
+    public PuntoEmissione getPuntoEmissione() {
         return punto_emissione;
     }
-    public void setPuntoEmissione(String punto_emissione) {
+    public void setPuntoEmissione(PuntoEmissione punto_emissione) {
         this.punto_emissione = punto_emissione;
     }
     public LocalDate getData_emissione() {
