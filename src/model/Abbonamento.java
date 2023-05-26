@@ -37,10 +37,6 @@ public class Abbonamento extends DocumentoEmesso {
         }
     }
 
-    // public Abbonamento(PuntoEmissione puntoEmissione, LocalDate dataEmissione) {
-    //     super(puntoEmissione, dataEmissione);
-    // }
-
     public Utente getUtente() {
         return utente;
     }
