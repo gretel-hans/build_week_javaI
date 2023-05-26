@@ -14,7 +14,9 @@ import javax.persistence.Table;
 
 import dao.MezzoDAO;
 import dao.RegistroBigliettiVidimatiDAO;
+import dao.RegistroStatoMezziDAO;
 import dao.RegistroTratteDAO;
+import enums.StatoMezzo;
 
 @Entity
 @DiscriminatorColumn(name = "tipo_mezzo")
@@ -49,6 +51,17 @@ public class Mezzo extends MezzoDAO {
 	public void timbraDocumentoEmesso( DocumentoEmesso b,LocalDate data ){
       RegistroBigliettiVidimatiDAO rbvd= new RegistroBigliettiVidimatiDAO();
 	  rbvd.saveOrUpdateRegistroBigliettoVidimato(new RegistroBigliettiVidimati(this, b,data));
+	}
+
+	public void vaiInManutenzione(LocalDate data){
+		RegistroStatoMezziDAO rsmd = new RegistroStatoMezziDAO();
+		RegistroStatoMezzi rsm = new RegistroStatoMezzi(this, StatoMezzo.MANUTENZIONE, data);
+		rsmd.saveOrUpdateRegistroStato(rsm);
+	}
+	public void tornaInServizio(LocalDate data){
+		RegistroStatoMezziDAO rsmd = new RegistroStatoMezziDAO();
+		RegistroStatoMezzi rsm = new RegistroStatoMezzi(this, StatoMezzo.IN_SERVIZIO, data);
+		rsmd.saveOrUpdateRegistroStato(rsm);
 	}
 
 	public long getId() {

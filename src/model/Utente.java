@@ -25,8 +25,6 @@ public class Utente extends UtenteDAO {
     private String nome;
     @Column
     private String cognome;
-    @Column
-    private double saldo;
 
     public Utente() {
     }
@@ -69,18 +67,11 @@ public class Utente extends UtenteDAO {
         this.cognome = cognome;
     }
 
-    public double getSaldo() {
-        return saldo;
-    }
-
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
-    }
-
+   
     @Override
     public String toString() {
         return "Utente [id_utente=" + id_utente + ", tessera=" + tessera + ", nome=" + nome + ", cognome=" + cognome
-                + ", saldo=" + saldo + "]";
+                + "]";
     }
 
 }

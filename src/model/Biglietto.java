@@ -1,7 +1,6 @@
 package model;
 import java.time.LocalDate;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -10,8 +9,6 @@ public class Biglietto extends DocumentoEmesso {
 	
 	private Boolean validita;
 	
-	@ManyToOne
-	private Mezzo mezzo;
 
 	public Biglietto(PuntoEmissione puntoEmissione, LocalDate dataEmissione) {
 		super(puntoEmissione, dataEmissione);
